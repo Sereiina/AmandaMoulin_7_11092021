@@ -3,7 +3,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const cors = require('cors');
-const mysql = require('mysql');
 
 const userRoutes = require('./routes/user');
 

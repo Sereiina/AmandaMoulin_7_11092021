@@ -1,11 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 5.0.2
--- https://www.phpmyadmin.net/
---
--- Hôte : 127.0.0.1
--- Généré le : mar. 20 oct. 2020 à 15:14
--- Version du serveur :  10.4.14-MariaDB
--- Version de PHP : 7.4.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -56,7 +48,7 @@ CREATE TABLE `posts` (
 --
 
 CREATE TABLE `users` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `id` int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `nom` varchar(40) NOT NULL,
   `prenom` varchar(40) NOT NULL,
   `password` varchar(80) NOT NULL,
