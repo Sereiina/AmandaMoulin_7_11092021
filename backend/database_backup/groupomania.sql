@@ -25,7 +25,7 @@ CREATE TABLE `comments` (
   `postId` int(10) UNSIGNED NOT NULL,
   `date` datetime NOT NULL DEFAULT current_timestamp(),
   `content` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4; 
 
 -- --------------------------------------------------------
 
