@@ -1,4 +1,4 @@
-const db = require("../database_connect");
+// const db = require("../database_connect");
 // All post
 exports.getAllPost = (req, res, next) => {
     db.query('SELECT users.nom, users.prenom, posts.id, posts.userId, posts.title, posts.content, posts.date AS date FROM users INNER JOIN posts ON users.id = posts.userId ORDER BY date DESC', (error, result, field) => {
