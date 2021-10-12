@@ -30,7 +30,7 @@ exports.signup = async (req, res, next) => {
         return res.status(400).json("mdp is invalid");
     }
 
-    //verif mail
+    //verifie si l'email renvoyer est valide ou pas
     if(!isEmailValid(req.body.email)) {
         return res.status(400).json("mail is invalid");
     }
@@ -48,13 +48,12 @@ exports.signup = async (req, res, next) => {
 //Connexion
 exports.login = async (req, res, next) => {
 
+    // vérifie si l'email ou le mot de passe existe ou pas
     const user = await UserModel.findOne({where : {email: req.body.email }});
     const isPasswordValid = await bcrypt.compare(req.body.password, user.password);
-    
     if (!user || !isPasswordValid) {
         return res.status(400).json("email ou mot de passe invalide");
     }
-
     res.status(200).json({userId: user.id, token: jwt.sign(
         {userId: user.id},
         process.env.TOKEN,
@@ -62,20 +61,17 @@ exports.login = async (req, res, next) => {
     )});
 
 };
+
 //Profil User
-
 exports.profilUser = async (req, res , next) => {
-
+    // affiche toutes les informations de l'utilisateur sauf le mot de passe
     const user = await UserModel.findOne({where: {'id': req.userId}, attributes : {exclude: ['password']}});
-    // console.log(user);
-    // delete user['password'];
-
     if (!user) {
         return res.status(400).json("No user found");
     }
     
     return res.status(200).json(user);
-}
+};
 
 // Delete User
 exports.deleteUser = async (req, res, next) => {
