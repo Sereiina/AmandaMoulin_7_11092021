@@ -1,4 +1,4 @@
-const { DATEONLY } = require('sequelize');
+
 const DataTypes = require('sequelize');
 const sequelize = require('../database_connect');
 

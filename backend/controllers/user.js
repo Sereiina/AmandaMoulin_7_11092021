@@ -75,12 +75,9 @@ exports.profilUser = async (req, res , next) => {
 
 // Delete User
 exports.deleteUser = async (req, res, next) => {
-    db.query(`DELETE FROM users WHERE users.id = ${req.params.id}`, (error, result, field) => {
-        if (error) {
-            return res.status(400).json({
-                error
-            });
-        }
-        return res.status(200).json(result);
-    });
+    const userDelete = await UserModel.destroy({where: {'id': req.userId}});
+    if (!userDelete) {
+        return res.status(400).json("No user found");
+    }
+    return res.status(200).json("User Delete");
 };

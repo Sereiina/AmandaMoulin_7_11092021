@@ -8,6 +8,6 @@ const Post = sequelize.define('posts', {
     content: {type: DataTypes.STRING, allowNull: false}
 }); 
 
-Post.sync();
+
 module.exports = sequelize.model('posts', Post);
  
