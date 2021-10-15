@@ -17,4 +17,19 @@ const storage = multer.diskStorage({
   }
 });
 
-module.exports = multer({storage: storage}).single('image');
+
+// var upload = multer({
+//   storage: multerS3({
+//     s3: s3,
+//     bucket: 'media',
+//     metadata: function (req, file, cb) {
+//       cb(null, {fieldName: file.fieldname});
+//     },
+//     key: function (req, file, cb) {
+//       cb(null, Date.now().toString())
+//     }
+//   })
+// })
+
+
+module.exports = multer({storage: storage}).single('content');
