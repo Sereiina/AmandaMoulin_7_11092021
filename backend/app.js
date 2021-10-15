@@ -6,7 +6,7 @@ const cors = require('cors');
 
 const userRoutes = require('./routes/user');
 const postTextRoutes = require('./routes/postText');
-
+const postCommentRoutes = require('./routes/commentPost');
 
 const app = express();
  
@@ -37,6 +37,9 @@ app.use('api/profil', userRoutes);
 
 app.use('/api/auth', postTextRoutes);
 app.use('/api/posts', postTextRoutes);
+
+app.use('api/auth', postCommentRoutes);
+app.use('api/comment', postCommentRoutes);
 
 
 module.exports = app; 

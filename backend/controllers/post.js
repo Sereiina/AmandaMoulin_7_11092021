@@ -1,7 +1,6 @@
 const PostModelText = require('../models/postText');
 const PostModelMedia = require('../models/postMedia');
 const CommentsModel = require('../models/commentPost'); 
-const commentPost = require('../models/commentPost');
 require('dotenv').config();
 
 // All post
@@ -112,7 +111,7 @@ exports.newComment = async (req, res, next) => {
 // Get all comments
 exports.getAllComments = async (req, res, next) => {
     if (req.userId) {
-        const allcomment = await commentPost.findAll(req.postId);
+        const allcomment = await CommentsModel.findAll(req.postId);
         return res.status(200).json(allcomment);
     } else {
         return res.status(400).json({message: 'Bad !'});
@@ -122,7 +121,7 @@ exports.getAllComments = async (req, res, next) => {
 exports.deleteComment = async (req, res, next) => {
 
     if (req.userId) {
-        const deleteComment = await commentPost.destroy({where: {'idPost': req.params.idComment}});
+        await CommentsModel.destroy({where: {'idPost': req.params.idComment}});
         return res.status(200).json({message: "commentaire supprimer"});
     } else {
         return res.status(400).json({message: 'Bad !'});
