@@ -8,5 +8,5 @@ const PostText = sequelize.define('postsText', {
     content: {type: DataTypes.STRING, allowNull: false}
 }); 
 
-PostText.sync();
+//  PostText.sync();
 module.exports = sequelize.model('postsText', PostText);

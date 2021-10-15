@@ -8,6 +8,6 @@ const User = sequelize.define('users', {
     password: {type: DataTypes.STRING,allowNull:false},
     email: {type: DataTypes.STRING,allowNull:false, unique:true},
 });
-User.sync();
+// User.sync(); 
 module.exports = sequelize.model('users', User);
-  
+    
