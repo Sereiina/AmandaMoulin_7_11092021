@@ -1,5 +1,7 @@
 const PostModelText = require('../models/postText');
 const PostModelMedia = require('../models/postMedia');
+const CommentsModel = require('../models/commentPost'); 
+const commentPost = require('../models/commentPost');
 require('dotenv').config();
 
 // All post
@@ -15,7 +17,7 @@ exports.getAllPost = async (req, res, next) => {
         return res.status(200).json({posts});
     } catch (error) { 
         return res.status(400).json({error});
-    }
+    } 
 };
 // NewPost
 exports.newPost = async (req, res, next) => {
@@ -39,27 +41,42 @@ exports.newPost = async (req, res, next) => {
         return res.status(400).json({error});
     }
 
-
 };
 // OnePost
 exports.getOnePost = async (req, res, next) => {
     try {
-        const post = await PostModelText.findByPk(req.params.idPost);
-        return res.status(200).json({onePost: post});
+        if (req.url == `/posts/media/${req.params.idPost}`) {
+            const post = await PostModelMedia.findByPk(req.params.idPost);
+         return res.status(200).json({onePost: post});
+        } else {
+            const post = await PostModelText.findByPk(req.params.idPost);
+            return res.status(200).json({onePost: post});
+        }
     } catch (error) {
         return res.status(400).json({error});
     } 
 };
+
 // Delete OnePost
 exports.deleteOnePost = async (req, res, next) => {
-    const post = await PostModelText.findOne({where: {'userId': req.userId}});
-    if(!post) {
+//TODO: reparer ce ptn de auth ....
+    if(req.userId) {
         return res.status(401).json({message: 'big error'});
     } else {
-        await PostModelText.destroy({where: {'idPost': req.params.idPost}}); 
-        return res.status(200).json({message: "post Delete"});
+        try {
+           if (req.url == `/posts/media/${req.params.idPost}`) {
+                await PostModelMedia.destroy({where: {'idPost': req.params.idPost}}); 
+                return res.status(200).json({message: "post Delete"});
+
+           } else {   
+               await PostModelText.destroy({where: {'idPost': req.params.idPost}}); 
+               return res.status(200).json({message: "post Delete"});
+           } 
+        } catch (error) { 
+        return res.status(400).json({error});
+        }
     }
-}; 
+};
 // Modify OnePost
 exports.modifyOnePost =  async (req, res, next) => {
     // gets the post to update
@@ -78,52 +95,36 @@ exports.modifyOnePost =  async (req, res, next) => {
         return res.status(200).json(post);
     }
 }; 
-// Get User's Posts
-exports.getUserPosts =  async (req, res, next) => {
 
-
-
-
-    // db.query(`SELECT * FROM posts WHERE posts.userId = ${req.params.id}`, (error, result, field) => {
-    //     if (error) {
-    //         return res.status(400).json({
-    //             error
-    //         });
-    //     }
-    //     return res.status(200).json(result);
-    // });
-};
 // New comment
 exports.newComment = async (req, res, next) => {
-    db.query(`INSERT INTO comments VALUES (NULL, ${req.body.userId}, ${req.params.id}, NOW(), '${req.body.content}')`, (error, result, field) => {
-        if (error) {
-            return res.status(400).json({
-                error
-            });
-        }
-        return res.status(200).json(result);
-    });
+    if (req.userId) {
+        await CommentsModel.create({
+            userId: req.userId,
+            postId: req.postId,
+            content: req.body.content   
+        });
+    } else {
+        return res.status(400).json({message: 'Bad !'});
+    }
 };
+
 // Get all comments
 exports.getAllComments = async (req, res, next) => {
-    db.query(`SELECT users.id, users.nom, users.prenom, comments.id,comments.content, comments.userId, comments.date FROM users INNER JOIN comments ON users.id = comments.userId WHERE comments.postId = ${req.params.id} ORDER BY comments.date DESC`,
-        (error, result, field) => {
-            if (error) {
-                return res.status(400).json({
-                    error
-                });
-            }
-            return res.status(200).json(result);
-        });
+    if (req.userId) {
+        const allcomment = await commentPost.findAll(req.postId);
+        return res.status(200).json(allcomment);
+    } else {
+        return res.status(400).json({message: 'Bad !'});
+    }
 };
 //Delete comment
 exports.deleteComment = async (req, res, next) => {
-    db.query(`DELETE FROM comments WHERE comments.id = ${req.params.id}`, (error, result, field) => {
-        if (error) {
-            return res.status(400).json({
-                error
-            });
-        }
-        return res.status(200).json(result);
-    });
+
+    if (req.userId) {
+        const deleteComment = await commentPost.destroy({where: {'idPost': req.params.idComment}});
+        return res.status(200).json({message: "commentaire supprimer"});
+    } else {
+        return res.status(400).json({message: 'Bad !'});
+    }
 };
