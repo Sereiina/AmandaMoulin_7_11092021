@@ -19,6 +19,13 @@ app.use((req, res, next) => {
     next();
 });
 
+const multer = require('./middlewares/multer-config');
+
+app.post('/upload', multer.array('content', 3), function(req, res, next) {
+    res.send('Successfully uploaded ' + req.files.length + ' files!')
+})
+
+
 //Security & data
 app.use(bodyParser.json());
 app.use(helmet());
