@@ -21,9 +21,9 @@ app.use((req, res, next) => {
 
 const multer = require('./middlewares/multer-config');
 
-app.post('/upload', multer.array('content', 3), function(req, res, next) {
-    res.send('Successfully uploaded ' + req.files.length + ' files!')
-})
+// app.post('/upload', multer.array('content', 3), function(req, res, next) {
+//     res.send('Successfully uploaded ' + req.files.length + ' files!')
+// })
 
 
 //Security & data
@@ -38,8 +38,8 @@ app.use('api/profil', userRoutes);
 app.use('/api/auth', postTextRoutes);
 app.use('/api/posts', postTextRoutes);
 
-app.use('api/auth', postCommentRoutes);
-app.use('api/comment', postCommentRoutes);
+app.use('/api/auth', postCommentRoutes);
+app.use('/api/comments', postCommentRoutes);
 
 
 module.exports = app; 
