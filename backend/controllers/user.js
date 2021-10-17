@@ -81,3 +81,24 @@ exports.deleteUser = async (req, res, next) => {
     }
     return res.status(200).json("User Delete");
 };
+
+
+// Mark user as Moderator
+exports.setUserAsModerator = async (req, res, next) => {
+
+    try {
+        const author = await UserModel.findByPk(req.userId);
+        if (author.isAdmin !== true) {
+            return res.status(401).json("You need to be an administrator to do this !");
+        }
+        
+        const user = await UserModel.findByPk(req.params.userId);
+        if (!user) {
+            return res.status(400).json({message: 'Bad !'});
+        }
+        user.update({isModerator: true});
+        return res.status(200).json(user);
+    } catch (error) {
+        return res.status(500).json({message: 'VERY Bad !'});    
+    }
+};

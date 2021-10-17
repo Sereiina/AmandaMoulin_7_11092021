@@ -21,34 +21,33 @@ exports.getAllPost = async (req, res, next) => {
 // NewPost
 exports.newPost = async (req, res, next) => {
 
-    try {
-        if (req.url == "/posts/media") {
-            await PostModelMedia.create({
-                userId: req.userId,
-                title: req.body.title,
-                content: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-            });
-        } else {
-            await PostModelText.create({
-                userId: req.userId,
-                title: req.body.title,
-                content: req.body.content
-            });
+        try {
+            if (req.url == "/posts/media") {
+                await PostModelMedia.create({
+                    userId: req.userId,
+                    title: req.body.title,
+                    content: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+                });
+            } else {
+                await PostModelText.create({
+                    userId: req.userId,
+                    title: req.body.title,
+                    content: req.body.content
+                });
+            }
+            return res.status(201).json({message : "post créé"});
+        } catch (error) {
+            return res.status(400).json({error});
         }
-        return res.status(201).json({message : "post créé"});
-    } catch (error) {
-        return res.status(400).json({error});
-    }
-
 };
 // OnePost
 exports.getOnePost = async (req, res, next) => {
     try {
-        if (req.url == `/posts/media/${req.params.idPost}`) {
-            const post = await PostModelMedia.findByPk(req.params.idPost);
+        if (req.url == `/posts/media/${req.params.postId}`) {
+            const post = await PostModelMedia.findByPk(req.params.postId);
          return res.status(200).json({onePost: post});
         } else {
-            const post = await PostModelText.findByPk(req.params.idPost);
+            const post = await PostModelText.findByPk(req.params.postId);
             return res.status(200).json({onePost: post});
         }
     } catch (error) {
@@ -58,51 +57,69 @@ exports.getOnePost = async (req, res, next) => {
 
 // Delete OnePost
 exports.deleteOnePost = async (req, res, next) => {
-//TODO: reparer ce ptn de auth ....
-    if(req.userId) {
-        return res.status(401).json({message: 'big error'});
-    } else {
-        try {
-           if (req.url == `/posts/media/${req.params.idPost}`) {
-                await PostModelMedia.destroy({where: {'idPost': req.params.idPost}}); 
-                return res.status(200).json({message: "post Delete"});
 
-           } else {   
-               await PostModelText.destroy({where: {'idPost': req.params.idPost}}); 
-               return res.status(200).json({message: "post Delete"});
-           } 
-        } catch (error) { 
-        return res.status(400).json({error});
+    let post = null;
+
+    try {
+        if (req.url == `/posts/media/${req.params.postId}`) {
+            post = await PostModelMedia.findByPk(req.params.postId);
+        } else {
+            post = await PostModelText.findByPk(req.params.postId);
         }
+
+        if (!post || post.userId != req.userId ) {
+            return res.status(400).json({message: 'Bad !'});
+        }
+
+        post.destroy(); 
+        return res.status(200).json({message: 'Deleted post'});
+
+    } catch (error) {
+    return res.status(500).json({message: 'VERY Bad !'});    
     }
+
 };
+
 // Modify OnePost
 exports.modifyOnePost =  async (req, res, next) => {
-    // gets the post to update
-    const post = await PostModelText.findByPk(req.params.idPost)
-    
-    // post exists ?
-    // user is the post's author ?
-    if (!post || post.userId != req.userId){
-        return res.status(400).json({message: 'Bad !'});
-    } else {
-        // update !
+
+    let post = null;
+    let content = null;
+
+    try {
+        if (req.url == `/posts/media/${req.params.postId}`) {
+            post = await PostModelMedia.findByPk(req.params.postId);
+            content = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+            console.log(post);
+        } else {
+            post = await PostModelText.findByPk(req.params.postId);
+            content = req.body.content;
+        }
+
+        if (!post || post.userId != req.userId ) {
+            return res.status(400).json({message: 'Bad !'});
+        }
         post.update({
             title: req.body.title,
-            content: req.body.content,
+            content: content,
         });
         return res.status(200).json(post);
+
+    } catch (error) {
+    return res.status(500).json({message: 'VERY Bad !'});    
     }
-}; 
+};
+
 
 // New comment
 exports.newComment = async (req, res, next) => {
     if (req.userId) {
         await CommentsModel.create({
             userId: req.userId,
-            postId: req.postId,
-            content: req.body.content   
+            postId: req.params.postId,
+            content: req.body.content  
         });
+        return res.status(201).json({message: "comment send !"});
     } else {
         return res.status(400).json({message: 'Bad !'});
     }
@@ -110,20 +127,23 @@ exports.newComment = async (req, res, next) => {
 
 // Get all comments
 exports.getAllComments = async (req, res, next) => {
+    
     if (req.userId) {
-        const allcomment = await CommentsModel.findAll(req.postId);
+        const allcomment = await CommentsModel.findAll({where : { postId : req.params.postId}});
         return res.status(200).json(allcomment);
     } else {
-        return res.status(400).json({message: 'Bad !'});
+        return res.status(400).json({message: 'Request no authozired ! !'});
     }
 };
 //Delete comment
 exports.deleteComment = async (req, res, next) => {
 
-    if (req.userId) {
-        await CommentsModel.destroy({where: {'idPost': req.params.idComment}});
-        return res.status(200).json({message: "commentaire supprimer"});
+    const comment = await CommentsModel.findByPk(req.params.commentId);
+
+    if (req.userId !== comment.userId) {
+        return res.status(400).json({message: 'Request no authozired !'});
     } else {
-        return res.status(400).json({message: 'Bad !'});
+        comment.destroy();
+        return res.status(200).json({message: "commentaire supprimer"});
     }
-};
+};  

@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
-
-
-const postCtrl = require('../controllers/post');
 const auth = require('../middlewares/auth');
 
 
-router.post('/posts/comments', auth, postCtrl.newComment);
+const postCtrl = require('../controllers/post');
 
-router.get('posts/comments', auth, postCtrl.getAllComments);
 
-router.delete('posts/comments', auth, postCtrl.deleteComment);
+router.post('/posts/:postId/comments', auth, postCtrl.newComment);
+
+router.get('/posts/:postId/comments/', auth, postCtrl.getAllComments);
+
+router.delete('/posts/:postId/comments/:commentId', auth, postCtrl.deleteComment);
 
 module.exports = router;
