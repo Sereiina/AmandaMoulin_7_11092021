@@ -1,6 +1,7 @@
 const PostModelText = require('../models/postText');
 const PostModelMedia = require('../models/postMedia');
 const CommentsModel = require('../models/commentPost'); 
+const UserModel = require ('../models/user');
 require('dotenv').config();
 
 // All post
@@ -67,12 +68,13 @@ exports.deleteOnePost = async (req, res, next) => {
             post = await PostModelText.findByPk(req.params.postId);
         }
 
-        if (!post || post.userId != req.userId ) {
-            return res.status(400).json({message: 'Bad !'});
-        }
+        const user = await UserModel.findByPk(req.userId);
 
-        post.destroy(); 
-        return res.status(200).json({message: 'Deleted post'});
+        if (post.userId === req.userId || user.isModerator) {
+            post.destroy(); 
+            return res.status(200).json({message: 'Deleted post'});
+        }
+        return res.status(400).json({message: 'Bad !'});
 
     } catch (error) {
     return res.status(500).json({message: 'VERY Bad !'});    
@@ -139,11 +141,19 @@ exports.getAllComments = async (req, res, next) => {
 exports.deleteComment = async (req, res, next) => {
 
     const comment = await CommentsModel.findByPk(req.params.commentId);
+    const user = await UserModel.findByPk(req.userId);
 
-    if (req.userId !== comment.userId) {
-        return res.status(400).json({message: 'Request no authozired !'});
-    } else {
-        comment.destroy();
-        return res.status(200).json({message: "commentaire supprimer"});
+    if (comment.userId === req.userId || user.isModerator) {
+        comment.destroy(); 
+        return res.status(200).json({message: 'Deleted comment'});            
     }
+    return res.status(400).json({message: 'Request no authozired !'});
+
+
+    // if (req.userId !== comment.userId) {
+    //     return res.status(400).json({message: 'Request no authozired !'});
+    // } else {
+    //     comment.destroy();
+    //     return res.status(200).json({message: "commentaire supprimer"});
+    // }
 };  
