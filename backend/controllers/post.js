@@ -148,12 +148,4 @@ exports.deleteComment = async (req, res, next) => {
         return res.status(200).json({message: 'Deleted comment'});            
     }
     return res.status(400).json({message: 'Request no authozired !'});
-
-
-    // if (req.userId !== comment.userId) {
-    //     return res.status(400).json({message: 'Request no authozired !'});
-    // } else {
-    //     comment.destroy();
-    //     return res.status(200).json({message: "commentaire supprimer"});
-    // }
 };  
