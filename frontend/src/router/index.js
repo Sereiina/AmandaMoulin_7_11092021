@@ -13,6 +13,22 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: () => import('../views/Login.vue')
+  }, {
+    path: '/accueil',
+    name: 'Accueil',
+    component: () => import('../views/Accueil.vue')
+  }, {
+    path: '/forum-text',
+    name: 'ForumText',
+    component: () => import('../views/ForumText.vue')
+  }, {
+    path: '/forum-media',
+    name: 'ForumMedia',
+    component: () => import('../views/ForumMedia.vue')
+  }, {
+    path: '/profil',
+    name: 'Profil',
+    component: () => import('../views/Profil.vue')
   }
 ]
 

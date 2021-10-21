@@ -1,14 +1,44 @@
 <script>
-
 import LoginSignupNav from '../components/LoginSignupNav.vue'
-
+import axios from "axios";
+import router from "../router"
 export default {
     name: 'Signup',
+
     components: {
         LoginSignupNav
+    },
+
+    data() {
+        return {
+                inputNom: "",
+                inputPrenom: "",
+                inputEmail: "",
+                inputPassword: ""
+            
+        }
+    },
+
+     methods: {
+
+         
+         async signup() {
+             
+             await axios.post("localhost:3000/api/auth/signup", {
+                 nom: this.inputNom,
+                 prenom: this.inputPrenom,
+                 email: this.inputEmail,
+                 password: this.inputPassword,
+             })
+                console.log("kek");
+                await router.push({ patch: '/login'});
+
+        }  
     }
-}  
+}
+
  
+//inscription
 
 </script>
 
@@ -17,26 +47,27 @@ export default {
 
     <section>
            <LoginSignupNav />
-        <form action="">
+        <form @submit.prevent="signup">
             <h1 class="font-center">Inscription </h1>
             <div class="wrap-form-double">
-                <label for=""></label>
-                <input class="form-margin font-bold" type="text" placeholder="Nom">
-                 <label for=""></label>
-                <input class="form-margin font-bold" type="text" placeholder="Prénom">
+                <label for="nom"></label> 
+                <input class="form-margin font-bold" type="text" placeholder="Nom" id="inputNom" v-model="inputNom">
+
+                 <label for="prenom"></label>
+                <input class="form-margin font-bold" type="text" placeholder="Prénom" id="inputPrenom" v-model="inputPrenom">
             </div>
             <div class="wrap-form">
-                <label  for=""></label>
-                <input class="form-margin font-bold" type="email" placeholder="Adresse email">
+                <label  for="email"></label>
+                <input class="form-margin font-bold" type="email" placeholder="Adresse email" id="inputEmail" v-model="inputEmail">
             </div>
 
             <div class="wrap-form">
-                <label class="" for=""></label>
-                <input class="form-margin font-bold" type="password" placeholder="Mot de passe">
+                <label for="password"></label>
+                <input class="form-margin font-bold" type="password" placeholder="Mot de passe" id="inputPassword" v-model="inputPassword">
             </div>
 
             <div class="wrap-form">
-            <input class="form-margin" type="button" value="S'inscrire">
+            <input v-on:click="signup" class="form-margin" type="button" value="S'inscrire">
 
             </div>
 
