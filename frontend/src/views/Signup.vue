@@ -24,16 +24,16 @@ export default {
          
          async signup() {
              
-             await axios.post("localhost:3000/api/auth/signup", {
+             await axios.post("http://localhost:3000/api/auth/signup", {
                  nom: this.inputNom,
                  prenom: this.inputPrenom,
                  email: this.inputEmail,
                  password: this.inputPassword,
              })
                 console.log("kek");
-                await router.push({ patch: '/login'});
+                await router.push({ path: '/login'});
 
-        }  
+        }
     }
 }
 
@@ -67,7 +67,7 @@ export default {
             </div>
 
             <div class="wrap-form">
-            <input v-on:click="signup" class="form-margin" type="button" value="S'inscrire">
+            <input class="form-margin" type="submit" value="S'inscrire" >
 
             </div>
 
