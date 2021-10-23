@@ -37,7 +37,7 @@ exports.signup = async (req, res, next) => {
     //si l'user existe
     const existingUser = await UserModel.findOne( {where: {email : req.body.email}});
     if (existingUser) {
-        return res.status(400).json("kek is invalid");
+        return res.status(400).json("email ou mdp invalid");
     } else {
         await UserModel.create( {nom: req.body.nom, prenom: req.body.prenom, password : hash, email : req.body.email});
         return res.status(201).json({message: 'Votre compte a bien été crée !'});

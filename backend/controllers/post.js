@@ -27,7 +27,7 @@ exports.newPost = async (req, res, next) => {
                 await PostModelMedia.create({
                     userId: req.userId,
                     title: req.body.title,
-                    content: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+                    content: req.body.content,
                 });
             } else {
                 await PostModelText.create({
@@ -36,9 +36,10 @@ exports.newPost = async (req, res, next) => {
                     content: req.body.content
                 });
             }
+            console.log("post crée");
             return res.status(201).json({message : "post créé"});
         } catch (error) {
-            return res.status(400).json({error});
+            return res.status(400).json({message: "Error with your send"});
         }
 };
 // OnePost
