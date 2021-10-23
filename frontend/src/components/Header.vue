@@ -6,8 +6,6 @@
             <input type="checkbox" name="" id="toggle">
             <div class="wrap-nav-link">
             <a href="./accueil">Accueil</a>
-            <a href="/forum-text"> Forum Textuel</a>
-            <a href="/forum-media">Forum Media</a>
             <a href="/profil">Profil</a>
             <a href="/login">Se déconnecter</a>
             </div>
@@ -15,7 +13,7 @@
     </nav>
 </template>
 
-<style lang="css">
+<style lang="css" scoped>
 
     .wrap-header {
         height: 10em;

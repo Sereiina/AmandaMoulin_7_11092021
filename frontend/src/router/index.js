@@ -16,7 +16,16 @@ const routes = [
   }, {
     path: '/accueil',
     name: 'Accueil',
-    component: () => import('../views/Accueil.vue')
+    
+    component: () => import('../views/Accueil.vue'),
+    beforeEnter: ((to, from, next) => {
+      if (to.name !== 'Login' && !sessionStorage.getItem('token')) {
+        next('/login')
+      } else {
+        next()
+      }
+      
+    })
   }, {
     path: '/forum-text',
     name: 'ForumText',
