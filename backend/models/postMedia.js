@@ -8,5 +8,5 @@ const PostMedia = sequelize.define('postMedia', {
     content: {type: DataTypes.STRING, allowNull: false}
 }); 
  
-PostMedia.sync(); 
+// PostMedia.sync(); 
 module.exports = sequelize.model('postMedia', PostMedia);

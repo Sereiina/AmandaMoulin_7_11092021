@@ -19,11 +19,15 @@ export default {
             createdAt: "",
             inputTitle: "",
             inputMedia: "",
+            viewPosts: "",
+            inputComment:"",
+            postId: "",
         }
     },
 
     created() {
-        this.userInfo()
+        this.userInfo(),
+        this.viewPostMedia()
     },
 
     methods: {
@@ -36,12 +40,31 @@ export default {
                 this.createdAt = user.data.createdAt;
         }, 
 
-        async postMedia() {
+        // async createPostMedia() {
+        //         await axios.post("api/auth/posts/media",   {
+        //         content: this.inputMedia,
+        //         title: this.inputTitle,
+        //     })
+        // },
+        async postMedia(title, content) {
                 await axios.post("api/auth/posts/media",   {
-                content: this.inputMedia,
-                title: this.inputTitle,
+                title: title,
+                content: content,
             })
-        }
+        },
+
+        async viewPostMedia() {
+
+           const post = await axios.get("api/auth/posts/media")
+            this.viewPosts = post.data.posts;
+            console.log(post);
+        },
+        async createComment() {
+            
+            await axios.post(`api/auth/posts/${this.postId}/comments`, {
+                content: this.Inputcomment,
+            })
+        },
     }
  
 }
@@ -73,20 +96,19 @@ export default {
                         <label for="">lien media</label>
                         <input type="url" placeholder="votre media ..." id="inputMedia" v-model="inputMedia">
 
-                        <input type="submit" @click="postMedia" value="Envoyer votre publication">
+                        <!-- <input type="submit" @click="createPostMedia" value="Envoyer votre publication"> -->
+                        <input type="submit" @click="postMedia(inputTitle, inputMedia)" value="Envoyer votre publication2">
                     </form> 
                 </div>
 
-                <div class="content-text">
-                    <!-- <p>{{this.title}} </p> -->
-                </div>
-                <!-- <div class="content-img">{{this.content}}</div> -->
 
                 <div class="comments"></div>
 
-            </div>
-
-
+        </div>
+            <div v-for="post in this.viewPosts" :key="post.title">
+                <h2>{{post.title}}</h2>
+            <img v-bind:src="post.content" alt="">
+        </div>
 
     </section>
 
