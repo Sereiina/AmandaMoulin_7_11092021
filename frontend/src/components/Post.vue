@@ -3,13 +3,16 @@ import axios from 'axios';
 
 import CommentSend from '../components/CommentSend.vue';
 import CommentsList from '../components/CommentsList.vue';
-
+import PostModify from '../components/PostModify.vue';
+import PostDelete from '../components/PostDelete.vue';
 export default {
   name: "Post",
   props: ['post'],
   components: {
       CommentSend,
-      CommentsList
+      CommentsList,
+      PostModify,
+      PostDelete,
   },
   data() {
     return {
@@ -32,13 +35,12 @@ export default {
   <div>
     <h2>{{ post.title }}</h2>
     <img v-bind:src="post.content" alt="" />
-
+    <!-- bouton pour modifier un post -->
+    <PostModify :postId="this.post.postId"/>
+    <PostDelete :postId="this.post.postId" />
     <!-- composant ajout comment -->
     <CommentSend :postId="this.post.postId"/>
-    <!-- <div v-for="comment in this.comments" :key="comment.content">
-        <Comment :comment=comment />
-    </div> -->
-
+    <!-- composant affichant les comments -->
     <CommentsList :postId="this.post.postId" />
 
   </div>
