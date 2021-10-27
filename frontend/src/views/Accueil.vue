@@ -3,12 +3,16 @@ import axios from "axios";
 axios.defaults.baseURL = 'http://localhost:3000/'
 axios.defaults.headers.common = {'Authorization': 'Bearer ' + sessionStorage.getItem('token')};
 
- import MenuNav from '../components/Header.vue'
+ import MenuNav from '../components/Header.vue';
+ import NewPost from '../components/NewPost.vue';
+ import AllPost from '../components/AllPosts.vue';
 
 export default {
     name: 'Menu',
     components: {
-        MenuNav
+        MenuNav,
+        NewPost,
+        AllPost,
     },
 
     data() {
@@ -17,17 +21,13 @@ export default {
             nom: "",
             prenom: "",
             createdAt: "",
-            inputTitle: "",
-            inputMedia: "",
-            viewPosts: "",
-            inputComment:"",
-            postId: "",
+            
+            
         }
     },
 
     created() {
-        this.userInfo(),
-        this.viewPostMedia()
+        this.userInfo()
     },
 
     methods: {
@@ -39,34 +39,9 @@ export default {
                 this.prenom = user.data.prenom;
                 this.createdAt = user.data.createdAt;
         }, 
-
-        // async createPostMedia() {
-        //         await axios.post("api/auth/posts/media",   {
-        //         content: this.inputMedia,
-        //         title: this.inputTitle,
-        //     })
-        // },
-        async postMedia(title, content) {
-                await axios.post("api/auth/posts/media",   {
-                title: title,
-                content: content,
-            })
-        },
-
-        async viewPostMedia() {
-
-           const post = await axios.get("api/auth/posts/media")
-            this.viewPosts = post.data.posts;
-            console.log(post);
-        },
-        async createComment() {
-            
-            await axios.post(`api/auth/posts/${this.postId}/comments`, {
-                content: this.Inputcomment,
-            })
-        },
+        
     }
- 
+
 }
 
 </script>
@@ -74,41 +49,23 @@ export default {
 <template>
 
     <section>
+            <!-- Menu de navigation -->
             <MenuNav />
-
-            
-
-            <div class="wrapper-post font-accueil">
-
-                <div class="wrap-user-info">
+            <!-- Nom & prenom de l'utisateur -->
+                <div class="wrap-user-info ">
                     <div class="name">  <p>{{this.nom}} {{this.prenom}}</p> </div>
                     <div class="date">  {{ this.createdAt}}</div>
                 </div>
-
-                <div class="">
-                    <form class="wrap-form-post">
-
-                        <h1>Nouvelle publication</h1>
-
-                        <label for="">Titre de la publication</label>
-                        <input type="text" placeholder="Title de la publication ..." id="inputTitle" v-model="inputTitle">
-
-                        <label for="">lien media</label>
-                        <input type="url" placeholder="votre media ..." id="inputMedia" v-model="inputMedia">
-
-                        <!-- <input type="submit" @click="createPostMedia" value="Envoyer votre publication"> -->
-                        <input type="submit" @click="postMedia(inputTitle, inputMedia)" value="Envoyer votre publication2">
-                    </form> 
+                <!-- Envoie d'un nouveau post -->
+                <div  class="wrapper-post font-accueil">
+                    <NewPost />
                 </div>
+            
+                <!-- affichage de tous les posts -->
+               
+                <AllPost />
+                <!-- envoie d'un commentaire -->
 
-
-                <div class="comments"></div>
-
-        </div>
-            <div v-for="post in this.viewPosts" :key="post.title">
-                <h2>{{post.title}}</h2>
-            <img v-bind:src="post.content" alt="">
-        </div>
 
     </section>
 
@@ -135,10 +92,6 @@ export default {
         width: 70%;
     }
 
-    .wrap-form-post  {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-    }
+    
 
 </style>
