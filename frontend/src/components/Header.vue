@@ -1,3 +1,18 @@
+<script>
+export default {
+
+    methods: {
+        clearToken() {
+            sessionStorage.removeItem("token");
+        }
+    }
+    
+}
+</script>
+
+
+
+
 <template>
     <nav>
         <div class="wrap-header">
@@ -7,7 +22,7 @@
             <div class="wrap-nav-link">
             <a href="./accueil">Accueil</a>
             <a href="/profil">Profil</a>
-            <a href="/login">Se déconnecter</a>
+            <a @click="clearToken" href="/login">Se déconnecter</a>
             </div>
         </div>
     </nav>
