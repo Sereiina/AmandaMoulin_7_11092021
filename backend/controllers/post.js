@@ -92,7 +92,7 @@ exports.modifyOnePost =  async (req, res, next) => {
     try {
         if (req.url == `/posts/media/${req.params.postId}`) {
             post = await PostModelMedia.findByPk(req.params.postId);
-            content = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+            content = req.body.content;
             console.log(post);
         } else {
             post = await PostModelText.findByPk(req.params.postId);
