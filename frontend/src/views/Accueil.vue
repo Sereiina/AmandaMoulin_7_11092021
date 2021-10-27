@@ -5,14 +5,14 @@ axios.defaults.headers.common = {'Authorization': 'Bearer ' + sessionStorage.get
 
  import MenuNav from '../components/Header.vue';
  import NewPost from '../components/NewPost.vue';
- import AllPost from '../components/AllPosts.vue';
+ import PostsList from '../components/PostsList.vue';
 
 export default {
     name: 'Menu',
     components: {
         MenuNav,
         NewPost,
-        AllPost,
+        PostsList,
     },
 
     data() {
@@ -63,8 +63,8 @@ export default {
             
                 <!-- affichage de tous les posts -->
                
-                <AllPost />
-                <!-- envoie d'un commentaire -->
+                <PostsList />
+                <!-- envoi d'un commentaire -->
 
 
     </section>

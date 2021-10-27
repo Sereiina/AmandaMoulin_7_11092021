@@ -8,7 +8,6 @@ export default {
             viewPosts: "",
             inputComment: [],
             postId: "",
-            content: "",
             comments: {},
         }
     },
