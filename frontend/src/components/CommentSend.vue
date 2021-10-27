@@ -14,13 +14,14 @@ export default {
             await axios.post(`api/auth/posts/${postId}/comments`, {
                 content: content,
             });
+            window.location.reload();
         },
     },
 }
 </script>
 
 <template>
-    <form @submit.prevent>
+    <form>
         <label>Commentaire</label>
         <input type="text" placeholder="Votre commentaire" v-model="inputComment">  
         <input type="submit" @click="sendComment(postId, inputComment)">
