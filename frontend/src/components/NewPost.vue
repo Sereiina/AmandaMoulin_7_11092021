@@ -23,13 +23,13 @@ export default {
 </script>
 
 <template>
-    <div class="">
+    <div class="wrap-new-post">
                     <form class="wrap-form-post" @submit="postMedia(inputTitle, inputMedia)">
 
                         <h1>Nouvelle publication</h1>
 
                         <label for="">Titre de la publication</label>
-                        <input type="text" placeholder="Title de la publication ..." id="inputTitle" required v-model="inputTitle">
+                        <input type="text" placeholder="Title de la publication ..." id="inputTitle" maxlength="255" required v-model="inputTitle">
 
                         <label for="">lien media</label>
                         <input type="url" placeholder="votre media ..." id="inputMedia" required v-model="inputMedia">
@@ -40,12 +40,22 @@ export default {
                 </div>
 </template>
 
-<style lang="css" scoped>
+<style lang="css">
+
+    .wrap-new-post {
+        display: flex;
+        justify-content: center;
+    }
 
     .wrap-form-post  {
-        display: flex;
+       display: flex;
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        flex-wrap: nowrap;
+        width: 25em;
+        padding: 1em;
+        border: solid black 2px;
+        border-radius: 1em;
     }
 
 </style>

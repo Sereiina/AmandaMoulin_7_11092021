@@ -17,14 +17,22 @@ export default {
   data() {
     return {
       comments: {},
+      nom: "",
+      prenom: "",
     };
   },
   created() {
     this.getComments();
+    this.userInfo();
   },
   methods: {
     async getComments() {
       this.comments = await axios.get(`api/auth/posts/${this.post.postId}/comments`);
+    },
+    async userInfo() {
+            const user = await axios.get("api/auth/profil")
+            this.nom = user.data.nom;
+            this.prenom = user.data.prenom;
     },
   },
 };
@@ -32,20 +40,77 @@ export default {
 
 
 <template>
-  <div>
-    <h2>{{ post.title }}</h2>
-    <img v-bind:src="post.content" alt="" />
+  <div class="wrap-post">
+    <div class="author-post">
+      <p>poster par : {{this.nom}} {{this.prenom}}</p>
+      <h2>{{ post.title }}</h2>
+      <img v-bind:src="post.content" alt="" />
+    </div>
     <!-- bouton pour modifier un post -->
-    <PostModify :postId="this.post.postId"/>
-    <PostDelete :postId="this.post.postId" />
-    <!-- composant ajout comment -->
-    <CommentSend :postId="this.post.postId"/>
-    <!-- composant affichant les comments -->
-    <CommentsList :postId="this.post.postId" />
+    <div class="button-modify-delete">
+      <PostModify :postId="this.post.postId" />
+      <PostDelete :postId="this.post.postId" />
+    </div>
+    <div>
+
+    </div>
+      <!-- composant permettant de envoyer un commentaire -->
+      <CommentSend :postId="this.post.postId"/>
+
+    <div class="wrap-comment-list">
+      <!-- composant affichant les comments -->
+      <CommentsList :postId="this.post.postId" />
+    </div>
 
   </div>
 </template>
 
 <style>
-</style>
 
+  .button-modify-delete {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+  }
+
+  .wrap-post {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+  .author-post {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex-direction: column;
+    border: black solid 2px;
+    width: 80% ;
+    margin-top: 3em;
+    border-radius: 1em 1em 0 0;
+}
+  .author-post > p {
+    color: black;
+    width: 100%;
+    text-align: center;
+    margin-top: 0.5em;
+    margin-bottom: 0 ;
+    border-bottom: black solid 2px ;
+  }
+  .author-post > h2 {
+    margin-top: 0em ;
+    border-bottom: 2px black solid;
+    text-align: center;
+    width: 100%;
+  }
+  .author-post > img {
+    width: 80%;
+  }
+
+  @media screen and (min-width: 750px) {
+  .author-post {
+    width: 40%;
+  }
+}
+</style>

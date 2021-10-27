@@ -16,10 +16,18 @@ export default {
 
 <template>
     <div>
-
-        <button @click="commentDelete">
-            <p>Supprimer</p>
-        </button>
-
+        <div class="">
+            <i @click="commentDelete" class="fas fa-times cross"></i>
+        </div>
     </div>
 </template>
+
+<style>
+ .cross {
+
+     font-size: 1.8em;
+ }
+ .cross:hover {
+     color: red;
+ }
+</style>

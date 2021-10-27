@@ -16,10 +16,6 @@ export default {
 
 <template>
     <div>
-
-        <button @click="postDelete">
-            <p>Supprimer</p>
-        </button>
-
+        <i @click="postDelete" class="fas fa-times  cross"></i>
     </div>
 </template>

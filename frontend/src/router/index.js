@@ -12,12 +12,22 @@ const routes = [
   }, {
     path: '/login',
     name: 'Login',
-    component: () => import('../views/Login.vue')
+    component: () => import('../views/Login.vue'),
   }, {
     path: '/accueil',
     name: 'Accueil',
-    
     component: () => import('../views/Accueil.vue'),
+    beforeEnter: ((to, from, next) => {
+      if (to.name !== 'Login' && !sessionStorage.getItem('token')) {
+        next('/login')
+      } else {
+        next()
+      }
+    })
+  }, {
+    path: '/profil',
+    name: 'Profil',
+    component: () => import('../views/Profil.vue'),
     beforeEnter: ((to, from, next) => {
       if (to.name !== 'Login' && !sessionStorage.getItem('token')) {
         next('/login')
@@ -26,14 +36,6 @@ const routes = [
       }
       
     })
-  }, {
-    path: '/forum-media',
-    name: 'ForumMedia',
-    component: () => import('../views/ForumMedia.vue')
-  }, {
-    path: '/profil',
-    name: 'Profil',
-    component: () => import('../views/Profil.vue')
   }
 ]
 

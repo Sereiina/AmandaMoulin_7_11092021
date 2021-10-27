@@ -18,30 +18,8 @@ export default {
     data() {
         return {
             headers: "",
-            nom: "",
-            prenom: "",
-            createdAt: "",
-            
-            
         }
     },
-
-    created() {
-        this.userInfo()
-    },
-
-    methods: {
-
-        async userInfo() {
-            const user = await axios.get("api/auth/profil",{
-            })
-                this.nom = user.data.nom;
-                this.prenom = user.data.prenom;
-                this.createdAt = user.data.createdAt;
-        }, 
-        
-    }
-
 }
 
 </script>
@@ -51,16 +29,9 @@ export default {
     <section>
             <!-- Menu de navigation -->
             <MenuNav />
-            <!-- Nom & prenom de l'utisateur -->
-                <div class="wrap-user-info ">
-                    <div class="name">  <p>{{this.nom}} {{this.prenom}}</p> </div>
-                    <div class="date">  {{ this.createdAt}}</div>
-                </div>
+                
                 <!-- Envoie d'un nouveau post -->
-                <div  class="wrapper-post font-accueil">
-                    <NewPost />
-                </div>
-            
+                    <NewPost />            
                 <!-- affichage de tous les posts -->
                
                 <PostsList />
@@ -72,26 +43,5 @@ export default {
 </template>
 
 <style lang="css" scoped>
-
-    .font-accueil {
-        font-size: 1.2em;
-        text-align: justify;
-        padding: 0.7em;
-    }
-    .accueil-link {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        justify-content: space-around;
-        align-items: center;
-    }
-
-
-    .wrapper-post {
-        border: black 1px solid;
-        width: 70%;
-    }
-
     
-
 </style>

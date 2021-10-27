@@ -21,9 +21,12 @@ export default {
 </script>
 
 <template>
-    <form @submit="sendComment(postId, inputComment)">
-        <label>Commentaire</label>
-        <input type="text" placeholder="Votre commentaire" required v-model="inputComment">  
+    <form class="wrap-form-comment" @submit="sendComment(postId, inputComment)">
+        <label>Commentaire : </label>
+        <input type="text" placeholder="Votre commentaire" maxlength="255" required v-model="inputComment">  
         <input type="submit" >
     </form>
 </template>
+
+<style>
+</style>

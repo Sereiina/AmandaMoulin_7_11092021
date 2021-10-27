@@ -24,6 +24,7 @@ export default {
                 password: this.inputPassword
             })
             sessionStorage.setItem("token", axiosRes.data.token );
+            // localStorage.setItem("token", axiosRes.data.nom)
             await router.push({ path: '/accueil'});
         }
     }
@@ -56,7 +57,7 @@ export default {
     </section>
 </template>
 
-<style lang="css">
+<style lang="css" scoped>
 
         .wrap-form {
             display: flex;

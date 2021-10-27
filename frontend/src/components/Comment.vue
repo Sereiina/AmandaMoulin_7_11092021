@@ -12,13 +12,32 @@ export default {
 
 
 <template>
-  <div>
+  <div class="wrapper-comment">
 
-    <p>{{ this.comment.content }}</p>
     <CommentDelete :postId="this.comment.postId" :commentId="this.comment.commentId" />
+    <p>{{ this.comment.content }}</p>
   </div>
 </template>
 
 <style>
+
+  .wrapper-comment {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 1px black solid;
+    width: 15em;
+;
+  }
+  .wrapper-comment > p {
+    margin-left: 2em;
+  }
+  @media screen and (min-width: 750px) {
+  .wrapper-comment {
+    width: 22em;
+  }
+}
 </style>
 
