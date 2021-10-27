@@ -27,10 +27,6 @@ const routes = [
       
     })
   }, {
-    path: '/forum-text',
-    name: 'ForumText',
-    component: () => import('../views/ForumText.vue')
-  }, {
     path: '/forum-media',
     name: 'ForumMedia',
     component: () => import('../views/ForumMedia.vue')
