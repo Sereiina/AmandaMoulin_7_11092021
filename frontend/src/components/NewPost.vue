@@ -3,8 +3,7 @@ import axios from "axios";
 
 
 export default {
-    name: 'Post',
-
+    name: 'NewPost',
     data() {
         return {
             inputTitle: "",
