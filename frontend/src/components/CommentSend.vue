@@ -21,9 +21,9 @@ export default {
 </script>
 
 <template>
-    <form>
+    <form @submit="sendComment(postId, inputComment)">
         <label>Commentaire</label>
-        <input type="text" placeholder="Votre commentaire" v-model="inputComment">  
-        <input type="submit" @click="sendComment(postId, inputComment)">
+        <input type="text" placeholder="Votre commentaire" required v-model="inputComment">  
+        <input type="submit" >
     </form>
 </template>

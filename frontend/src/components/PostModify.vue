@@ -29,15 +29,16 @@ export default {
     <button @click="active = !active">
         Modifier
     </button>
-    <div v-show="active">
-        <label for="">Titre de la publication</label>
-            <input type="text" placeholder="Title de la publication" id="ModifTitle" v-model="ModifTitle">
+        <form v-show="active" @submit="postModify(ModifTitle, ModifMedia)">
+            <label for="">Titre de la publication</label>
+            <input type="text" placeholder="Title de la publication" id="ModifTitle" required v-model="ModifTitle">
 
             <label for="">lien media</label>
-            <input type="url" placeholder="votre media" id="ModifMedia" v-model="ModifMedia">
+            <input type="url" placeholder="votre media" id="ModifMedia" required v-model="ModifMedia">
 
-            <input type="submit" @click="postModify(ModifTitle, ModifMedia)" value="Modifier votre publication">
-    </div>
+            <input type="submit"  value="Modifier votre publication">
+
+        </form>
 </div>
 </template>
 
