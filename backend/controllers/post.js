@@ -10,9 +10,20 @@ exports.getAllPost = async (req, res, next) => {
     try {
         let posts = null;
         if (req.url == "/posts/media") {
-            posts = await PostModelMedia.findAll({ attributes: { exclude: ['userId']}});
+            // posts = await PostModelMedia.findAll({ attributes: { exclude: ['userId']}});
+
+            
+            posts = await PostModelMedia.findAll({
+                attributes: {
+                    exclude: ['userId']
+                },
+                include: [{
+                    model: UserModel,
+                    attributes: ['nom', 'prenom']
+                }]
+            });
         } else {
-            posts = await PostModelText.findAll({ attributes: { exclude: ['userId']}});
+            posts = await PostModelText.findAll();
         }
         return res.status(200).json({posts});
     } catch (error) { 
@@ -22,25 +33,25 @@ exports.getAllPost = async (req, res, next) => {
 // NewPost
 exports.newPost = async (req, res, next) => {
 
-        try {
-            if (req.url == "/posts/media") {
-                await PostModelMedia.create({
-                    userId: req.userId,
-                    title: req.body.title,
-                    content: req.body.content,
-                });
-            } else {
-                await PostModelText.create({
-                    userId: req.userId,
-                    title: req.body.title,
-                    content: req.body.content
-                });
-            }
-            console.log("post crée");
-            return res.status(201).json({message : "post créé"});
-        } catch (error) {
-            return res.status(400).json({message: "Error with your send"});
+    try {
+        if (req.url == "/posts/media") {
+            await PostModelMedia.create({
+                userId: req.userId,
+                title: req.body.title,
+                content: req.body.content,
+            });
+        } else {
+            await PostModelText.create({
+                userId: req.userId,
+                title: req.body.title,
+                content: req.body.content
+            });
         }
+        console.log("post crée");
+        return res.status(201).json({message : "post créé"});
+    } catch (error) {
+        return res.status(400).json({message: "Error with your send"});
+    }
 };
 // OnePost
 exports.getOnePost = async (req, res, next) => {
@@ -70,6 +81,7 @@ exports.deleteOnePost = async (req, res, next) => {
         }
 
         const user = await UserModel.findByPk(req.userId);
+        
 
         if (post.userId === req.userId || user.isModerator) {
             post.destroy(); 
@@ -132,11 +144,28 @@ exports.newComment = async (req, res, next) => {
 exports.getAllComments = async (req, res, next) => {
     
     if (req.userId) {
-        const allcomment = await CommentsModel.findAll({where : { postId : req.params.postId}});
+        const allcomment = await CommentsModel.findAll({
+            where : { postId : req.params.postId},
+            attributes: {
+                exclude: ['userId']
+            },
+            include: [{
+                model: UserModel,
+                attributes: ['nom', 'prenom']
+            }]
+        });
         return res.status(200).json(allcomment);
     } else {
         return res.status(400).json({message: 'Request no authozired ! !'});
     }
+
+    // attributes: {
+    //     exclude: ['userId']
+    // },
+    // include: [{
+    //     model: UserModel,
+    //     attributes: ['nom', 'prenom']
+    // }]
 };
 //Delete comment
 exports.deleteComment = async (req, res, next) => {
