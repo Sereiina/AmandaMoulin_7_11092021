@@ -2,6 +2,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const user = require('../models/user');
 const UserModel = require("../models/user");
+const PostModel = require("../models/postMedia");
+const CommentModel = require ("../models/commentPost");
 require('dotenv').config();
 
 //Inscription
@@ -75,11 +77,36 @@ exports.profilUser = async (req, res , next) => {
 
 // Delete User
 exports.deleteUser = async (req, res, next) => {
-    const userDelete = await UserModel.destroy({where: {'id': req.userId}});
+
+
+    const userDelete = await UserModel.findOne({where: {'id': req.userId}});
     if (!userDelete) {
         return res.status(400).json("No user found");
+    } 
+    else {
+        try {
+            await CommentModel.destroy({ where : {'userId': req.userId}})
+            console.log('Commentaire supprimer');
+        } catch(error) {
+            res.status(400).json({error});
+        }
+        try {
+            await PostModel.destroy({ where: {'userId': req.userId}})
+            console.log('Post supprimer');
+        } catch(error) {
+            res.status(400).json({error}); 
+        }
+        try {
+            await UserModel.destroy({where: {'id' : req.userId}})
+            console.log('Compter supprimer');
+        } catch(error) {
+            res.status(400).json({error});
+        }
+        return res.status(200).json("User Delete");
     }
-    return res.status(200).json("User Delete");
+
+
+    
 };
 
 
