@@ -12,7 +12,8 @@ export default {
     data() {
         return {
             inputEmail: "",
-            inputPassword: ""
+            inputPassword: "",
+            error: false
         }
     },
     methods: {
@@ -23,9 +24,9 @@ export default {
                 email: this.inputEmail,
                 password: this.inputPassword
             })
-            sessionStorage.setItem("token", axiosRes.data.token );
-            // localStorage.setItem("token", axiosRes.data.nom)
-            await router.push({ path: '/accueil'});
+                sessionStorage.setItem("token", axiosRes.data.token );
+                // localStorage.setItem("token", axiosRes.data.nom)
+                await router.push({ path: '/accueil'});
         }
     }
 }
@@ -50,7 +51,12 @@ export default {
             </div>
 
             <div class="wrap-form">
-                <input class="form-margin" type="submit" value="Se connecter">
+                <input @click="error = true" class="form-margin" type="submit" value="Se connecter">
+            </div>
+
+            <div>
+                <p v-show="error"> Mot de passe ou email incorrect
+                    </p>
             </div>
 
         </form>

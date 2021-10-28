@@ -15,6 +15,7 @@ export default {
   <div class="wrapper-comment">
 
     <CommentDelete :postId="this.comment.postId" :commentId="this.comment.commentId" />
+    <p> {{comment.user.nom}} {{comment.user.prenom}} : </p>
     <p>{{ this.comment.content }}</p>
   </div>
 </template>

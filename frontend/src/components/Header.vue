@@ -39,6 +39,7 @@ export default {
         flex-wrap: nowrap;
         align-items: center;
         justify-content: space-between;
+        background-color: #ffd7d7;
     }
     .logo-nav {
         width: 30%;

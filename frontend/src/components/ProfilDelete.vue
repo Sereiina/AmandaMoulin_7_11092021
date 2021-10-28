@@ -18,8 +18,14 @@ export default {
 </script>
 
 <template>
-    <div>
-        <button @click="commentDelete"> ERASE </button>
+    <div class="button-profil-delete">
+        <button  @click="commentDelete"> ERASE </button>
         
     </div>
 </template>
+
+<style>
+    .button-profil-delete {
+        text-align: center;
+    }
+</style>

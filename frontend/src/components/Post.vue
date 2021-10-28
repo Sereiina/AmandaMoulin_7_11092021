@@ -17,22 +17,15 @@ export default {
   data() {
     return {
       comments: {},
-      nom: "",
-      prenom: "",
+      
     };
   },
   created() {
     this.getComments();
-    this.userInfo();
   },
   methods: {
     async getComments() {
       this.comments = await axios.get(`api/auth/posts/${this.post.postId}/comments`);
-    },
-    async userInfo() {
-            const user = await axios.get("api/auth/profil")
-            this.nom = user.data.nom;
-            this.prenom = user.data.prenom;
     },
   },
 };
@@ -42,7 +35,7 @@ export default {
 <template>
   <div class="wrap-post">
     <div class="author-post">
-      <p>poster par : {{this.nom}} {{this.prenom}}</p>
+      <p>Posté par : {{post.user.nom}} {{post.user.prenom}}</p>
       <h2>{{ post.title }}</h2>
       <img v-bind:src="post.content" alt="" />
     </div>
@@ -54,7 +47,7 @@ export default {
     <div>
 
     </div>
-      <!-- composant permettant de envoyer un commentaire -->
+      <!-- composant permettant d'envoyer un commentaire -->
       <CommentSend :postId="this.post.postId"/>
 
     <div class="wrap-comment-list">
@@ -99,13 +92,14 @@ export default {
     border-bottom: black solid 2px ;
   }
   .author-post > h2 {
-    margin-top: 0em ;
+    margin: 0em ;
     border-bottom: 2px black solid;
     text-align: center;
     width: 100%;
   }
   .author-post > img {
-    width: 80%;
+    width:100%;
+    
   }
 
   @media screen and (min-width: 750px) {

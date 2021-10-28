@@ -29,7 +29,7 @@ export default {
 </script>
 
 <template>
-    <div>
+    <div class="wrap-profil">
         
         <h1>Information utilisateur</h1>
         <div>
@@ -41,3 +41,12 @@ export default {
     
     </div>
 </template>
+
+<style>
+    .wrap-profil {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        text-align: center;
+    }
+</style>

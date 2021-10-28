@@ -29,7 +29,7 @@ export default {
 
 <template>
   <div>
-    <div v-for="comment in this.comments" :key="comment.content">
+    <div v-for="comment in this.comments" :key="comment.commentId">
       <Comment :comment="comment" />
     </div>
   </div>

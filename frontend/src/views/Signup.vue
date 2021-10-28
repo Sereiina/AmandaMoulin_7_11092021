@@ -14,8 +14,8 @@ export default {
                 inputNom: "",
                 inputPrenom: "",
                 inputEmail: "",
-                inputPassword: ""
-            
+                inputPassword: "",
+                error: ""
         }
     },
 
@@ -67,9 +67,14 @@ export default {
             </div>
 
             <div class="wrap-form">
-            <input class="form-margin" type="submit" value="S'inscrire" >
-
+            <input @click="error = true" class="form-margin" type="submit" value="S'inscrire" >
             </div>
+            <p v-show="error">Mot de passe invalide ou email déjà existant, le mot de passe doit contenir 1 chiffre minimum
+                    <br> / 1 miniscule minimum
+                    <br>  / 1 majuscule minimum / 
+                    <br>  1 caractère spécial minimum / 
+                    <br>  8 caractères minimum
+                    </p> 
 
         </form>
     </section>

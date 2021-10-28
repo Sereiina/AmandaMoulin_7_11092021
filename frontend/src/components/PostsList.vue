@@ -26,7 +26,7 @@ export default {
 <template>
   <div>
 
-    <div v-for="post in this.posts" :key="post.title">
+    <div v-for="post in this.posts" :key="post.postId">
         <Post :post=post />
     </div>
   </div>
