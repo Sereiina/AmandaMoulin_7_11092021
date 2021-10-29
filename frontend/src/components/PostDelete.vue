@@ -8,6 +8,7 @@ export default {
     methods: {
         async postDelete() {
             await axios.delete(`api/auth/posts/media/${this.postId}`)
+            console.log('kek');
             window.location.reload();
         }
     }
@@ -16,6 +17,21 @@ export default {
 
 <template>
     <div>
-        <i @click="postDelete" class="fas fa-times  cross"></i>
+
+        <button @click="postDelete" class="button-delete">
+            Effacer la publication
+        </button>
+        
     </div>
 </template>
+
+<style>
+    .button-delete {
+        margin-top: 2em;
+        align-content: center;
+        text-align: center;
+        width: 12em;
+        padding: 0.5em;
+        font-size: 17px;
+    }
+</style>

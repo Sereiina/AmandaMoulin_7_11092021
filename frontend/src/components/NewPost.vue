@@ -29,13 +29,13 @@ export default {
                         <h1>Nouvelle publication</h1>
 
                         <label for="">Titre de la publication</label>
-                        <input type="text" placeholder="Title de la publication ..." id="inputTitle" maxlength="255" required v-model="inputTitle">
+                        <input class="new-post-form" type="text" placeholder="Title de la publication ..." id="inputTitle" maxlength="255" required v-model="inputTitle">
 
-                        <label for="">lien media</label>
-                        <input type="url" placeholder="votre media ..." id="inputMedia" required v-model="inputMedia">
+                        <label for="">Url de votre publication</label>
+                        <input class="new-post-form" type="url" placeholder="votre media ..." id="inputMedia" required v-model="inputMedia">
 
                         <!-- <input type="submit" @click="createPostMedia" value="Envoyer votre publication"> -->
-                        <input type="submit" value="Envoyer votre publication">
+                        <input class="new-post-input" type="submit" value="Envoyer votre publication">
                     </form> 
                 </div>
 </template>
@@ -45,6 +45,8 @@ export default {
     .wrap-new-post {
         display: flex;
         justify-content: center;
+            margin-top: 4em;
+
     }
 
     .wrap-form-post  {
@@ -52,10 +54,28 @@ export default {
         flex-direction: column;
         align-items: center;
         flex-wrap: nowrap;
-        width: 25em;
+        width: 75.5%;
         padding: 1em;
         border: solid black 2px;
         border-radius: 1em;
+        background-color: #ffd7d7;
+    }
+    .new-post-form {
+        width: 80%;
+        height: 2em;
+        margin-bottom: 2em;
+        padding: 0.5em;
+    }
+    .new-post-input {
+        width: 84%;
+        padding: 0.5em;
+        background-color: #ffeded;
+        border: black 2px solid;
+    }
+    @media screen and (min-width: 750px) {
+    .wrap-form-post {
+        width: 37.5%;
+    }
     }
 
 </style>

@@ -41,8 +41,8 @@ export default {
     </div>
     <!-- bouton pour modifier un post -->
     <div class="button-modify-delete">
-      <PostModify :postId="this.post.postId" />
       <PostDelete :postId="this.post.postId" />
+      <PostModify :postId="this.post.postId" />
     </div>
     <div>
 
@@ -62,9 +62,10 @@ export default {
 
   .button-modify-delete {
     display: flex;
-    align-items: center;
     flex-wrap: nowrap;
-    flex-direction: row;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
   }
 
   .wrap-post {
@@ -81,7 +82,8 @@ export default {
     border: black solid 2px;
     width: 80% ;
     margin-top: 3em;
-    border-radius: 1em 1em 0 0;
+    border-radius: 1em 1em 0 0;  
+    background-color: #ffd7d7;;
 }
   .author-post > p {
     color: black;
@@ -90,6 +92,7 @@ export default {
     margin-top: 0.5em;
     margin-bottom: 0 ;
     border-bottom: black solid 2px ;
+    
   }
   .author-post > h2 {
     margin: 0em ;

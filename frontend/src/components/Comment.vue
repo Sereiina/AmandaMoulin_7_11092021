@@ -24,17 +24,14 @@ export default {
 
   .wrapper-comment {
     display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-evenly;
-    align-items: center;
-    border: 1px black solid;
+    flex-direction: column;
+    align-items: stretch;
+    border: 2px black solid;
     width: 15em;
-;
+    padding: 1em;
+    background-color: #ffd7d7;
   }
-  .wrapper-comment > p {
-    margin-left: 2em;
-  }
+  
   @media screen and (min-width: 750px) {
   .wrapper-comment {
     width: 22em;

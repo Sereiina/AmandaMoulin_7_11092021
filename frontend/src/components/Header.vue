@@ -1,6 +1,12 @@
 <script>
 export default {
 
+    data() {
+        return {
+            navigation: "",
+        }
+    },
+
     methods: {
         clearToken() {
             sessionStorage.removeItem("token");
@@ -17,23 +23,30 @@ export default {
     <nav>
         <div class="wrap-header">
             <img class="logo-nav" src="../assets/icon-left-font-monochrome-black.png" alt="">
-            <label class="nav-toggle" for="toggle">☰</label>
-            <input type="checkbox" name="" id="toggle">
+            
             <div class="wrap-nav-link">
-            <a href="./accueil">Accueil</a>
-            <a href="/profil">Profil</a>
-            <a @click="clearToken" href="/login">Se déconnecter</a>
+                <!-- <label @click="navigation = !navigation" class="nav-toggle" >☰</label> -->
+                <a  href="./accueil">Accueil</a>
+                <a  href="/profil">Profil</a>
+                <a  @click="clearToken" href="/login">Se déconnecter</a>
             </div>
         </div>
     </nav>
 </template>
 
-<style lang="css" scoped>
+<style lang="css">
+    
+    a {
+    text-decoration: none;
+    font-size: 1em;
+    padding: 0.5em;
+    color: black;
+    }
 
     .wrap-header {
         height: 10em;
-         padding-right: 3em;
-        padding-left: 3em;
+        padding-right: 1em;
+        padding-left: 1em;
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
@@ -41,49 +54,54 @@ export default {
         justify-content: space-between;
         background-color: #ffd7d7;
     }
+
     .logo-nav {
-        width: 30%;
+        width: 50%;
+    }
+    .wrap-nav-link {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        flex-wrap: nowrap;
+    }
+       
+
+    .nav-toggle {
+        width: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 40px;
+        cursor: pointer;
     }
 
-
-.nav-toggle, #toggle {
-        display: none;
-    }
-
-    @media all and (max-width: 991px) {
-        
-       a {
-           height: 60px;
-       }
-
-        nav .wrap-nav-link {
-            display: none;
-            flex-direction: column;
-            height: 220px;
-        }
-
-
-       .nav-toggle {
-            width: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            
-            font-size: 40px;
-            cursor: pointer;
-       }
-
-        #toggle:checked + .wrap-nav-link {
-            display: flex;
-            
-        }
-    }
-
+@media screen and (min-width: 750px) { 
+    
     a {
-        text-decoration: none;
+         text-decoration: none;
         font-size: 1.2em;
         color: black;
         margin-left: 1.5em;
+        display:inline;
     }
+    .logo-nav {
+        width: 30%;
+    }
+     
+    .wrap-nav-link {
+        flex-direction: row;
+    }
+    .wrap-header {
+        padding-right: 3em ;
+        padding-left: 3em;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+
+    }
+    
+}
 
 </style>

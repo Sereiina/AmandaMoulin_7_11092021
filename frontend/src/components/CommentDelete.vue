@@ -16,8 +16,8 @@ export default {
 
 <template>
     <div>
-        <div class="">
-            <i @click="commentDelete" class="fas fa-times cross"></i>
+        <div class=""> 
+            <i @click="commentDelete" class="fas fa-times cross"> supprimer</i>
         </div>
     </div>
 </template>
@@ -25,9 +25,10 @@ export default {
 <style>
  .cross {
 
-     font-size: 1.8em;
+     font-size: 1.1em;
  }
  .cross:hover {
      color: red;
+     cursor: pointer;
  }
 </style>
