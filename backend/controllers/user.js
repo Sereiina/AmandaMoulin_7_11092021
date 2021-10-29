@@ -1,23 +1,23 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const user = require('../models/user');
 const UserModel = require("../models/user");
 const PostModel = require("../models/postMedia");
 const CommentModel = require ("../models/commentPost");
 require('dotenv').config();
 
+//Verification du mdp s'il contient 1 chiffre / 1 miniscule / 1 majuscule / 1 caractère spécial / 8 caractères
+function isPasswordValid(password) {
+    const paswordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+    return paswordRegex.test(String(password))
+} 
+// Verification de l'email
+function isEmailValid(email) {
+    const emailReg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return emailReg.test(String(email).toLowerCase());
+};
+
 //Inscription
 exports.signup = async (req, res, next) => {
-    //Verification du mdp s'il contient 1 chiffre / 1 miniscule / 1 majuscule / 1 caractère spécial / 8 caractères
-    function isPasswordValid(password) {
-        const paswordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
-        return paswordRegex.test(String(password))
-    }
-    // Verification de l'email
-    function isEmailValid(email) {
-        const emailReg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return emailReg.test(String(email).toLowerCase());
-    };
 
     // hash du mdp avec bcrypt
     let hash = null;
@@ -73,6 +73,41 @@ exports.profilUser = async (req, res , next) => {
     }
     
     return res.status(200).json(user);
+};
+//Modifie l'utilisateur
+exports.profilModify = async (req, res, next) =>  {
+    //permet de modifier les infos d'un utilisateur
+    const userModify = await UserModel.findOne({ where: { 'id': req.userId}});
+    console.log(userModify);
+    
+    let newPassword = null;
+
+    let update = {
+        nom: req.body.nom,
+        prenom: req.body.prenom,
+        email: req.body.email,
+    };
+    
+    if ('newPassword' in req.body && 'oldPassword' in req.body){
+        const isHashValid = await bcrypt.compare(req.body.oldPassword, userModify.password);
+        if (isHashValid && isPasswordValid(req.body.newPassword)){
+            try {
+                update['password'] = await bcrypt.hash(req.body.newPassword, 10)
+            } catch (error) {
+                return res.status(500).json({ error });
+            }
+        } else {
+            return res.status(400).json({message: "Invalid password !"});
+        }
+    }
+
+
+    try {
+        userModify.update(update);
+        return res.status(201).json(userModify);
+    } catch (error) {
+        return res.status(500).json({message: 'Modification go bad !'});
+    }
 };
 
 // Delete User
