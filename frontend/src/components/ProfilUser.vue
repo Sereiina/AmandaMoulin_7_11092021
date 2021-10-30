@@ -7,7 +7,6 @@ import Modal from "../components/Modal.vue";
 
 export default {
     name: 'ProfilUser',
-    props: ['post'],
 
     components: {
         Modal,
@@ -22,7 +21,7 @@ export default {
             inputEmail: "",
             oldPassword: "",
             newPassword: "",
-            active: false,
+            // active: false,
             nameEditForm: false,
             emailEditForm: false,
             passwordEditForm: false,
@@ -42,28 +41,13 @@ export default {
             this.email = profil.data.email;
         },
 
-        // async modifyProfil(inputNom,inputPrenom,inputEmail,oldPassword,newPassword) {
-        //     if (this.newPassword === this.confirmationPassword) {
-        //         await axios.put("api/auth/profil", {
-        //             nom: inputNom,
-        //             prenom: inputPrenom,
-        //             email: inputEmail,
-        //             oldPassword:oldPassword,
-        //             newPassword: newPassword,
-        //         })
-        //     }
-        //     else {
-        //         console.log('nouveau mot de passe non identique');
-        //     }
-        // },
-
         async editName(inputNom, inputPrenom) {
             await axios.put("api/auth/profil", {
                 nom: inputNom,
                 prenom: inputPrenom
             })
         },
-        
+
         async editMail(inputEmail) {
             await axios.put("api/auth/profil", {
                 email: inputEmail

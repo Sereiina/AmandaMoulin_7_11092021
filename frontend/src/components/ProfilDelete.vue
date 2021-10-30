@@ -19,7 +19,7 @@ export default {
 
 <template>
     <div class="button-profil-delete">
-        <button  @click="commentDelete"> ERASE </button>
+        <button  @click="commentDelete"> Supprimer le compte </button>
         
     </div>
 </template>

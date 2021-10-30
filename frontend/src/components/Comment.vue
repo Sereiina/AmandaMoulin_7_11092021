@@ -2,7 +2,7 @@
 import CommentDelete from '../components/CommentDelete.vue';
 export default {
   name: "Comment",
-  props: ["comment"],
+  props: ["comment", "canDelete"],
 
   components: {
     CommentDelete,
@@ -12,15 +12,39 @@ export default {
 
 
 <template>
-  <div class="wrapper-comment">
 
-    <CommentDelete :postId="this.comment.postId" :commentId="this.comment.commentId" />
+  <main>
+
+  <div class="comment-container">
     <p> {{comment.user.nom}} {{comment.user.prenom}} : </p>
-    <p>{{ this.comment.content }}</p>
+
+    <div class="wrapper-comment-meta">
+
+       <p>{{ this.comment.content }}</p>
+      <CommentDelete v-show="canDelete" :postId="this.comment.postId" :commentId="this.comment.commentId" />
+
+    </div>
   </div>
+
+  </main>
+
 </template>
 
 <style>
+
+.comment-container{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.wrapper-comment-meta{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  width: 100%;
+}
+
+
 
   .wrapper-comment {
     display: flex;

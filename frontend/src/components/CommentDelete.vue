@@ -17,18 +17,19 @@ export default {
 <template>
     <div>
         <div class=""> 
-            <i @click="commentDelete" class="fas fa-times cross"> supprimer</i>
+            <i @click="commentDelete" class="fas fa-trash cross"></i>
         </div>
     </div>
 </template>
 
 <style>
  .cross {
-
+    transition: 0.3s ease;
      font-size: 1.1em;
  }
  .cross:hover {
      color: red;
      cursor: pointer;
- }
+     transition: 0.3s ease;
+}
 </style>

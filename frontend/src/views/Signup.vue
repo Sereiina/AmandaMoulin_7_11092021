@@ -2,11 +2,12 @@
 import LoginSignupNav from '../components/LoginSignupNav.vue'
 import axios from "axios";
 import router from "../router"
+
 export default {
     name: 'Signup',
 
     components: {
-        LoginSignupNav
+        LoginSignupNav,
     },
 
     data() {
@@ -37,7 +38,7 @@ export default {
     }
 }
 
- 
+
 //inscription
 
 </script>
@@ -74,7 +75,7 @@ export default {
                     <br>  / 1 majuscule minimum / 
                     <br>  1 caractère spécial minimum / 
                     <br>  8 caractères minimum
-                    </p> 
+            </p> 
 
         </form>
     </section>

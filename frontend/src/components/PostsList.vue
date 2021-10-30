@@ -8,16 +8,31 @@ export default {
   data() {
     return {
       posts: {},
+      isModerator: {},
     };
   },
-  created() {
+  beforeMount() {
     this.getPosts();
+  },
+  created() {
+    this.getUser();
   },
   methods: {
     async getPosts() {
       const response = await axios.get("api/auth/posts/media");
       this.posts = response.data.posts;
     },
+    async getUser() {
+      const profil = await axios.get("api/auth/profil")
+      this.userId = profil.data.id;
+      this.isModerator = profil.data.isModerator;
+    },
+    canDelete(postAuthorId) {
+      if (this.isModerator || this.userId == postAuthorId) {
+        return true;
+      }
+      return false;
+    }
   },
 };
 </script>
@@ -27,7 +42,7 @@ export default {
   <div>
 
     <div v-for="post in this.posts" :key="post.postId">
-        <Post :post=post />
+        <Post :post=post :canDelete="canDelete(post.user.id)"/>
     </div>
   </div>
 </template>

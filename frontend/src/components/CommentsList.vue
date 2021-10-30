@@ -10,10 +10,14 @@ export default {
   data() {
     return {
       comments: {},
+      isModerator: {},
     };
   },
-  created() {
+  beforeMount() {
     this.getComments();
+  },
+  created() {
+    this.getUser();
   },
   methods: {
     async getComments() {
@@ -22,6 +26,17 @@ export default {
       );
       this.comments = response.data;
     },
+    async getUser() {
+      const profil = await axios.get("api/auth/profil")
+      this.userId = profil.data.id;
+      this.isModerator = profil.data.isModerator;
+    },
+    canDelete(commentAuthorId) {
+      if (this.isModerator || this.userId == commentAuthorId) {
+        return true;
+      }
+      return false;
+    }
   },
 };
 </script>
@@ -30,7 +45,7 @@ export default {
 <template>
   <div>
     <div v-for="comment in this.comments" :key="comment.commentId">
-      <Comment :comment="comment" />
+      <Comment :comment="comment" :canDelete="canDelete(comment.user.id)"/>
     </div>
   </div>
 </template>
