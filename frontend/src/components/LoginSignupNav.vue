@@ -7,7 +7,7 @@
                 <label class="nav-toggle" for="toggle">☰</label>
                 <input type="checkbox" name="" id="toggle">
             <div class="wrap-nav-link">
-                <a class="nav-hide" href="/signup"> Inscription</a>
+                <a class="nav-hide" href="/"> Inscription</a>
                 <a class="nav-hide" href="/login">Connexion</a>
             </div>
         </div>
