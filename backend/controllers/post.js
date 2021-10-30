@@ -19,7 +19,7 @@ exports.getAllPost = async (req, res, next) => {
                 },
                 include: [{
                     model: UserModel,
-                    attributes: ['nom', 'prenom']
+                    attributes: ['nom', 'prenom', 'id']
                 }]
             });
         } else {
@@ -151,7 +151,7 @@ exports.getAllComments = async (req, res, next) => {
             },
             include: [{
                 model: UserModel,
-                attributes: ['nom', 'prenom']
+                attributes: ['nom', 'prenom', 'id']
             }]
         });
         return res.status(200).json(allcomment);
