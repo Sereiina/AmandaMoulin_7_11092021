@@ -10,6 +10,6 @@ const User = sequelize.define('users', {
     isAdmin: {type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false},
     isModerator: {type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false}
 });
-// User.sync(); 
+User.sync(); 
 module.exports = sequelize.model('users', User);
     

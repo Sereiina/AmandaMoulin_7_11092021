@@ -11,5 +11,5 @@ const Comments = sequelize.define('comments', {
 
 Comments.belongsTo(UserModel)
  
-// Comments.sync(); 
+Comments.sync(); 
 module.exports = sequelize.model('comments', Comments);
