@@ -1,49 +1,49 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import Vue from "vue";
+import VueRouter from "vue-router";
 
-
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'Signup',
-    component: () => import('../views/Signup.vue')
+    path: "/",
+    name: "Signup",
+    component: () => import("../views/Signup.vue"),
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: () => import('../views/Login.vue'),
-  }, {
-    path: '/accueil',
-    name: 'Accueil',
-    component: () => import('../views/Accueil.vue'),
-    beforeEnter: ((to, from, next) => {
-      if (to.name !== 'Login' && !sessionStorage.getItem('token')) {
-        next('/login')
+    path: "/login",
+    name: "Login",
+    component: () => import("../views/Login.vue"),
+  },
+  {
+    path: "/accueil",
+    name: "Accueil",
+    component: () => import("../views/Accueil.vue"),
+    beforeEnter: (to, from, next) => {
+      if (to.name !== "Login" && !sessionStorage.getItem("token")) {
+        next("/login");
       } else {
-        next()
+        next();
       }
-    })
-  }, {
-    path: '/profil',
-    name: 'Profil',
-    component: () => import('../views/Profil.vue'),
-    beforeEnter: ((to, from, next) => {
-      if (to.name !== 'Login' && !sessionStorage.getItem('token')) {
-        next('/login')
+    },
+  },
+  {
+    path: "/profil",
+    name: "Profil",
+    component: () => import("../views/Profil.vue"),
+    beforeEnter: (to, from, next) => {
+      if (to.name !== "Login" && !sessionStorage.getItem("token")) {
+        next("/login");
       } else {
-        next()
+        next();
       }
-      
-    })
-  }
-]
+    },
+  },
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
 export default router;

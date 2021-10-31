@@ -27,7 +27,7 @@ export default {
       this.comments = response.data;
     },
     async getUser() {
-      const profil = await axios.get("api/auth/profil")
+      const profil = await axios.get("api/auth/profil");
       this.userId = profil.data.id;
       this.isModerator = profil.data.isModerator;
     },
@@ -36,7 +36,7 @@ export default {
         return true;
       }
       return false;
-    }
+    },
   },
 };
 </script>
@@ -45,7 +45,7 @@ export default {
 <template>
   <div>
     <div v-for="comment in this.comments" :key="comment.commentId">
-      <Comment :comment="comment" :canDelete="canDelete(comment.user.id)"/>
+      <Comment :comment="comment" :canDelete="canDelete(comment.user.id)" />
     </div>
   </div>
 </template>

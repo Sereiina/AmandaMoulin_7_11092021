@@ -1,10 +1,10 @@
 <script>
-import axios from 'axios';
-import Post from '../components/Post.vue';
+import axios from "axios";
+import Post from "../components/Post.vue";
 export default {
-    components: {
-        Post,
-    },
+  components: {
+    Post,
+  },
   data() {
     return {
       posts: {},
@@ -23,7 +23,7 @@ export default {
       this.posts = response.data.posts;
     },
     async getUser() {
-      const profil = await axios.get("api/auth/profil")
+      const profil = await axios.get("api/auth/profil");
       this.userId = profil.data.id;
       this.isModerator = profil.data.isModerator;
     },
@@ -32,7 +32,7 @@ export default {
     },
     canEdit(postAuthorId) {
       return this.userId == postAuthorId;
-    }
+    },
   },
 };
 </script>
@@ -40,13 +40,12 @@ export default {
 
 <template>
   <div>
-
     <div v-for="post in this.posts" :key="post.postId">
-        <Post
-          :post=post
-          :canDelete="canDelete(post.user.id)"
-          :canEdit="canEdit(post.user.id)"
-        />
+      <Post
+        :post="post"
+        :canDelete="canDelete(post.user.id)"
+        :canEdit="canEdit(post.user.id)"
+      />
     </div>
   </div>
 </template>
