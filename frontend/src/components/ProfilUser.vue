@@ -73,13 +73,13 @@ export default {
     <div class="wrap-profil">
 
         <h1>Information utilisateur</h1>
-        <div>
-            <p>Nom : {{this.nom}}</p>
-            <p>Prenom : {{this.prenom}}</p>
-            <p>Adresse email : {{this.email}}</p>
+        <div class="profil-user-informations">
+            <p><b>Nom :</b> {{this.nom}}</p>
+            <p><b>Prenom :</b> {{this.prenom}}</p>
+            <p><b>Adresse email :</b> {{this.email}}</p>
         </div>
 
-    <button @click="nameEditForm = !nameEditForm">Changer mon nom</button>
+    <button class="profil-button-modify" @click="nameEditForm = !nameEditForm">Changer mon nom</button>
     <Modal v-show="nameEditForm" @close="nameEditForm = false">
     <template v-slot:header>
        Changez vos informations
@@ -87,10 +87,10 @@ export default {
 
     <template v-slot:body>
         <form class="profil-modify" @submit="editName(inputNom,inputPrenom)">
-            <label for="">Votre nom :</label>
-            <input type="text" placeholder="nom" v-model="inputNom">
+            <label bold-text for="">Votre nom : </label>
+            <input type="text" placeholder="nom" v-model="inputNom"  >
 
-            <label for="">Votre prenom :</label>
+            <label bold-text for="">Votre prenom :</label>
             <input type="text" placeholder="prenom" v-model="inputPrenom">
             <input type="submit" value="Changer ses informations">
         </form>
@@ -100,7 +100,7 @@ export default {
     </template>
     </Modal>
 
-    <button @click="emailEditForm = !emailEditForm">Changer mon email</button>
+    <button class="profil-button-modify" @click="emailEditForm = !emailEditForm">Changer mon email</button>
     <Modal v-show="emailEditForm" @close="emailEditForm = false">
     <template v-slot:header>
        Changer mon email
@@ -119,7 +119,7 @@ export default {
     </Modal>
 
 
-    <button @click="passwordEditForm = !passwordEditForm">Changer mon mot de passe</button>
+    <button class="profil-button-modify" @click="passwordEditForm = !passwordEditForm">Changer mon mot de passe</button>
     <Modal v-show="passwordEditForm" @close="passwordEditForm = false">
     <template v-slot:header>
        Changer mon mot de passe
@@ -142,34 +142,6 @@ export default {
     </template>
     </Modal>
 
-
-    <!-- <button @click="active = !active">
-        Changer ses informations personnelles
-    </button> -->
-<!-- v-model -->
-        <!-- <form class="profil-modify" v-show="active" @submit="modifyProfil(inputNom,inputPrenom,inputEmail,oldPassword,newPassword)">
-
-            <label for="">Votre nom :</label>
-            <input type="text" placeholder="nom" v-model="inputNom">
-
-            <label for="">Votre prenom :</label>
-            <input type="text" placeholder="prenom" v-model="inputPrenom">
-
-            <label for="">Votre email :</label>
-            <input type="email" placeholder="email" v-model="inputEmail">
-
-            <label for="">Votre ancien mot de passe :</label>
-            <input type="password" placeholder="mot de passe" v-model="oldPassword">
-            <label for="">nouveau mot de passe :</label>
-            <input type="password" placeholder="nouveau mot de passe" v-model="newPassword">
-            <label for="">confirmation mot de passe :</label>
-            <input type="password" placeholder="confirmer mot de passe" v-model="confirmationPassword">
-
-            <input type="submit" value="Changer ses informations">
-        </form> -->
-
-
-
     </div>
 </template>
 
@@ -179,6 +151,13 @@ export default {
         flex-direction: column;
         flex-wrap: nowrap;
         text-align: center;
+        align-items: center;
+    }
+    .profil-user-informations {
+        border: 3px solid rgb(0, 0, 0);
+        margin-bottom: 2em;
+        padding: 1em;
+        border-radius: 2em;
     }
     .profil-modify {
         align-self: center;
@@ -186,5 +165,30 @@ export default {
         flex-direction: column;
         max-width: 640px;
         align-items: center;
+    }
+    .profil-button-modify {
+        width: 64%;
+        margin-bottom: 2em;
+        padding: 0.7em;
+        cursor: pointer;
+        border: solid 1px black;
+        background-color: #ffd7d7;
+    }
+    .profil-button-modify:hover {
+        background-color: #fcc0c0;
+        font-weight: 600;
+        border: solid 1px black;
+    }
+    bold-text {
+    font-weight: 600;
+    }
+     @media screen and (min-width: 750px) {
+       .profil-button-modify {
+        width: 24%;
+
+       }
+       .profil-user-informations {
+           padding: 2em;
+       }
     }
 </style>
