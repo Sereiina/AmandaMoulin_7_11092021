@@ -9,7 +9,7 @@ import Modal from '../components/Modal.vue';
 
 export default {
   name: "Post",
-  props: ['post', 'canDelete'],
+  props: ['post', 'canDelete', 'canEdit'],
   components: {
       CommentSend,
       CommentsList,
@@ -48,18 +48,18 @@ export default {
 
   <div class="wrap-post" >
     <div class="author-post" @click="postModal = true; scrollDisabler('on') ">
-      <p>Posté par : {{post.user.nom}} {{post.user.prenom}}</p>
-      <h2>{{ post.title }}</h2>
+      <p class="text_overflow">Posté par : {{post.user.nom}} {{post.user.prenom}}</p>
+      <h2 class="text_overflow">{{ post.title }}</h2>
       <img v-bind:src="post.content" alt="" />
     </div>
   </div>
- <!-- on a trouvé le soucis de la croix;, lol, mais viens quand meme ou consequence - nep -->
+ 
     <Modal v-show="postModal" @close="postModal = false; scrollDisabler('off')" >
 
         <template v-slot:header>
           <div class="postModal_meta">
-            <h1>{{post.title}}</h1>
-            <h2>Posté par : {{post.user.nom}} {{post.user.prenom}}</h2>
+            <h1 class="text_overflow">{{post.title}}</h1>
+            <h2 class="text_overflow">Posté par : {{post.user.nom}} {{post.user.prenom}}</h2>
           </div>
         </template>
 
@@ -70,7 +70,7 @@ export default {
             <!-- bouton pour modifier un post -->
             <div class="button-modify-delete">
               <PostDelete v-show="canDelete" :postId="post.postId" />
-              <PostModify :postId="post.postId" />
+              <PostModify v-show="canEdit" :postId="post.postId" />
             </div> 
 
         </template>
@@ -98,6 +98,12 @@ export default {
 </template>
 
 <style>
+  .text_overflow{
+    width: 100%;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   .modal {
     width: 100vw;
     height: 100vh;

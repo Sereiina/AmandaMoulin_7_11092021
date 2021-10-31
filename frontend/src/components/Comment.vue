@@ -24,7 +24,7 @@ export default {
 
     <div class="wrapper-comment-meta">
 
-       <p>{{ this.comment.content }}</p>
+       <p class="text_overflow">{{ this.comment.content }}</p>
 
     </div>
   </div>

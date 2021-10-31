@@ -88,10 +88,10 @@ export default {
     <template v-slot:body>
         <form class="profil-modify" @submit="editName(inputNom,inputPrenom)">
             <label bold-text for="">Votre nom : </label>
-            <input type="text" placeholder="nom" v-model="inputNom"  >
+            <input type="text" placeholder="nom" v-model="inputNom" required>
 
             <label bold-text for="">Votre prenom :</label>
-            <input type="text" placeholder="prenom" v-model="inputPrenom">
+            <input type="text" placeholder="prenom" v-model="inputPrenom" required>
             <input type="submit" value="Changer ses informations">
         </form>
     </template>
@@ -110,7 +110,7 @@ export default {
         <form class="profil-modify" @submit="editMail(inputEmail)">
             <label for="">Votre email :</label>
             <input type="email" placeholder="email" v-model="inputEmail">
-            <input type="submit" value="Changer ses informations">
+            <input type="submit" value="Changer ses informations" required>
         </form>
     </template>
 
@@ -128,11 +128,11 @@ export default {
     <template v-slot:body>
         <form class="profil-modify" @submit.prevent="editPassword(oldPassword, newPassword, confirmationPassword)">
             <label for="">Votre ancien mot de passe :</label>
-            <input type="password" placeholder="mot de passe" v-model="oldPassword">
+            <input type="password" placeholder="mot de passe" v-model="oldPassword" required>
             <label for="">nouveau mot de passe :</label>
-            <input type="password" placeholder="nouveau mot de passe" v-model="newPassword">
+            <input type="password" placeholder="nouveau mot de passe" v-model="newPassword" required>
             <label for="">confirmation mot de passe :</label>
-            <input type="password" placeholder="confirmer mot de passe" v-model="confirmationPassword">
+            <input type="password" placeholder="confirmer mot de passe" v-model="confirmationPassword" required>
             <input type="submit" value="Changer ses informations">
         </form>
     </template>
