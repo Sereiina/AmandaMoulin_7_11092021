@@ -90,11 +90,11 @@ export default {
     <template v-slot:body>
         <form class="profil-modify" @submit="editName(inputNom,inputPrenom)">
             <label bold-text for="">Votre nom : </label>
-            <input type="text" required v-model="inputNom">
+            <input class="profil-input" type="text" required v-model="inputNom">
 
             <label bold-text for="">Votre prenom :</label>
-            <input type="text" placeholder="prenom" v-model="inputPrenom" required>
-            <input type="submit" value="Changer ses informations">
+            <input class="profil-input" type="text" placeholder="prenom" v-model="inputPrenom" required>
+            <input class="profil-submit"  type="submit" value="Changer ses informations">
         </form>
     </template>
 
@@ -110,8 +110,8 @@ export default {
 
     <template v-slot:body>
         <form class="profil-modify" @submit="editMail(inputEmail)">
-            <label for="">Votre email :</label>
-            <input type="email" placeholder="email" v-model="inputEmail">
+            <label  for="">Votre email :</label>
+            <input class="profil-input" type="email" placeholder="email" v-model="inputEmail">
             <input type="submit" value="Changer ses informations" required>
         </form>
     </template>
@@ -129,12 +129,12 @@ export default {
 
     <template v-slot:body>
         <form class="profil-modify" @submit.prevent="editPassword(oldPassword, newPassword, confirmationPassword)">
-            <label for="">Votre ancien mot de passe :</label>
-            <input type="password" placeholder="mot de passe" v-model="oldPassword" required>
+            <label  for="">Votre ancien mot de passe :</label>
+            <input class="profil-input" type="password" placeholder="mot de passe" v-model="oldPassword" required>
             <label for="">nouveau mot de passe :</label>
-            <input type="password" placeholder="nouveau mot de passe" v-model="newPassword" required>
+            <input class="profil-input" type="password" placeholder="nouveau mot de passe" v-model="newPassword" required>
             <label for="">confirmation mot de passe :</label>
-            <input type="password" placeholder="confirmer mot de passe" v-model="confirmationPassword" required>
+            <input class="profil-input" type="password" placeholder="confirmer mot de passe" v-model="confirmationPassword" required>
             <input type="submit" value="Changer ses informations">
         </form>
     </template>
@@ -148,6 +148,20 @@ export default {
 </template>
 
 <style>
+    .modal {
+        width: 50%;
+    }
+    .modal-header {
+        color: black;
+        background-color: #ffd7d7;
+        border-bottom: black 1px solid;
+        display: flex;
+        align-items: center;
+    }
+    .modal-wrapper {
+        background-color: #ffd7d7;
+
+    }
     .wrap-profil {
         display: flex;
         flex-direction: column;
@@ -160,6 +174,7 @@ export default {
         margin-bottom: 2em;
         padding: 1em;
         border-radius: 2em;
+        background-color: #fcc0c0;
     }
     .profil-modify {
         align-self: center;
@@ -167,6 +182,24 @@ export default {
         flex-direction: column;
         max-width: 640px;
         align-items: center;
+    }
+    .profil-input {
+        width: 80%;
+        height: 2em;
+        margin-bottom: 2em;
+        padding: 0.5em;
+    }
+    .profil-submit {
+        width: 64%;
+        margin-bottom: 2em;
+        padding: 0.5em;
+        cursor: pointer;
+        border: solid 1px black;
+        background-color: #fcc0c0;
+    }
+    .profil-submit:hover {
+        font-weight: 600;
+        border: solid 1px black;
     }
     .profil-button-modify {
         width: 64%;
