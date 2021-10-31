@@ -21,7 +21,6 @@ export default {
             inputEmail: "",
             oldPassword: "",
             newPassword: "",
-            // active: false,
             nameEditForm: false,
             emailEditForm: false,
             passwordEditForm: false,
@@ -39,6 +38,9 @@ export default {
             this.nom = profil.data.nom;
             this.prenom = profil.data.prenom;
             this.email = profil.data.email;
+            this.inputNom = this.nom;
+            this.inputPrenom = this.prenom;
+            this.inputEmail = this.email;
         },
 
         async editName(inputNom, inputPrenom) {
@@ -88,7 +90,7 @@ export default {
     <template v-slot:body>
         <form class="profil-modify" @submit="editName(inputNom,inputPrenom)">
             <label bold-text for="">Votre nom : </label>
-            <input type="text" placeholder="nom" v-model="inputNom" required>
+            <input type="text" required v-model="inputNom">
 
             <label bold-text for="">Votre prenom :</label>
             <input type="text" placeholder="prenom" v-model="inputPrenom" required>

@@ -24,7 +24,7 @@ export default {
 
     <div class="wrapper-comment-meta">
 
-       <p class="text_overflow">{{ this.comment.content }}</p>
+       <p class="post_comment_overflow text_max_width">{{ this.comment.content }}</p>
 
     </div>
   </div>
@@ -41,7 +41,6 @@ export default {
   flex-direction: column;
   border-bottom: 1px solid black;
   background-color: white;
-  width: 31em;
 }
 .comment-author-and-delete{
   display: flex;
@@ -57,8 +56,6 @@ export default {
   padding: 15px;
 }
 
-
-
   .wrapper-comment {
     display: flex;
     flex-direction: column;
@@ -69,10 +66,6 @@ export default {
     background-color: #ffd7d7;
   }
   
-  @media screen and (min-width: 750px) {
-  .wrapper-comment {
-    width: 22em;
-  }
+  @media screen and (min-width: 1200px) {
 }
 </style>
-

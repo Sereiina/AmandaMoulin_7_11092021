@@ -48,18 +48,19 @@ export default {
 
   <div class="wrap-post" >
     <div class="author-post" @click="postModal = true; scrollDisabler('on') ">
-      <p class="text_overflow">Posté par : {{post.user.nom}} {{post.user.prenom}}</p>
-      <h2 class="text_overflow">{{ post.title }}</h2>
+      <p class="text_max_width post_title_overflow">Posté par : {{post.user.nom}} {{post.user.prenom}}</p>
+      <h2 class="text_max_width post_title_overflow">{{ post.title }}</h2>
       <img v-bind:src="post.content" alt="" />
     </div>
+      <button class="post-details" @click="postModal = true; scrollDisabler('on')"  >Afficher plus de détails</button>
   </div>
  
     <Modal v-show="postModal" @close="postModal = false; scrollDisabler('off')" >
 
         <template v-slot:header>
           <div class="postModal_meta">
-            <h1 class="text_overflow">{{post.title}}</h1>
-            <h2 class="text_overflow">Posté par : {{post.user.nom}} {{post.user.prenom}}</h2>
+            <h1 class="text_max_width post_comment_overflow">{{post.title}}</h1>
+            <h2 class="text_max_width post_comment_overflow">Posté par : {{post.user.nom}} {{post.user.prenom}}</h2>
           </div>
         </template>
 
@@ -70,7 +71,7 @@ export default {
             <!-- bouton pour modifier un post -->
             <div class="button-modify-delete">
               <PostDelete v-show="canDelete" :postId="post.postId" />
-              <PostModify v-show="canEdit" :postId="post.postId" />
+              <PostModify v-show="canEdit" :post="post" />
             </div> 
 
         </template>
@@ -98,13 +99,20 @@ export default {
 </template>
 
 <style>
-  .text_overflow{
+  .text_max_width{
     width: 100%;
+  }
+  .post_title_overflow{
     overflow:hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .modal {
+  .post_comment_overflow{
+    text-overflow: clip;
+    white-space: wrap;
+    overflow-wrap: break-word;
+  }
+   .modal {
     width: 100vw;
     height: 100vh;
     background-color: transparent;
@@ -123,6 +131,9 @@ export default {
     border: 0;
   }
 
+  .postModal_commentSection{
+    width: 100%;
+  }
   .postModal_content{
     width: 100%;
   }
@@ -205,6 +216,19 @@ export default {
     width:100%;
     
   }
+  .post-details {
+    width: 80.3%;
+    margin-bottom: 2em;
+    padding: 0.7em;
+    cursor: pointer;
+    border: solid 1px black;
+    background-color: #ffd7d7;
+  }
+  .post-details:hover {
+    background-color: #fcc0c0;
+    font-weight: 600;
+    border: solid 1px black;
+  }
 
   #Layer_1{
     fill: white !important;
@@ -213,9 +237,18 @@ export default {
     fill: red !important;
   }
 
-  @media screen and (min-width: 750px) {
+  @media screen and (min-width: 1200px) {
   .author-post {
     width: 40%;
   }
+  .post-details {
+    width: 40.2%;
+  }
 }
+@media screen and (max-width: 1200px) {
+    .modal-body{
+      width:100% !important;
+    }
+  }
+
 </style>

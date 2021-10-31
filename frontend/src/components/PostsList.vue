@@ -27,12 +27,12 @@ export default {
       this.userId = profil.data.id;
       this.isModerator = profil.data.isModerator;
     },
-    // canDelete() {
-    //   return this.isModerator;
-    // },
-    // canEdit(postAuthorId) {
-    //   return this.userId == postAuthorId;
-    // }
+    canDelete(postAuthorId) {
+      return this.isModerator || this.canEdit(postAuthorId);
+    },
+    canEdit(postAuthorId) {
+      return this.userId == postAuthorId;
+    }
   },
 };
 </script>
@@ -44,8 +44,8 @@ export default {
     <div v-for="post in this.posts" :key="post.postId">
         <Post
           :post=post
-          :canDelete="isModerator"
-          :canEdit="userId == post.user.id"
+          :canDelete="canDelete(post.user.id)"
+          :canEdit="canEdit(post.user.id)"
         />
     </div>
   </div>

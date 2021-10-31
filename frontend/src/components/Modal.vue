@@ -14,7 +14,7 @@
 <main>
 
   <transition name="modal-fade">
-    <div class="modal-backdrop">
+    <div class="modal-backdrop" id="modal-bg">
 
       <div class="modal"
         role="dialog"
@@ -25,9 +25,7 @@
           class="modal-header"
           id="modalTitle"
         >
-          <slot name="header">
-            This is the default tile!
-          </slot>
+          <slot name="header"></slot>
           <button
             type="button"
             class="btn-close"
@@ -90,7 +88,6 @@
     display: flex;
     flex-direction: column;
     pointer-events: all;
-    min-width: 350px;
   }
 
   .modal-header,
@@ -158,5 +155,17 @@
   .modal-fade-enter-active,
   .modal-fade-leave-active {
     transition: opacity .5s ease;
+  }
+  @media screen and (max-width: 1200px) {
+    .modal-footer{
+      width:50%;
+    }
+    .modal-wrapper{
+      flex-direction: column !important;
+      justify-content: center;
+    }
+    .modal-body{
+      padding: 0px !important;
+    }
   }
 </style>
