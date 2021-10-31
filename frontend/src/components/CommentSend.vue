@@ -21,7 +21,7 @@ export default {
 </script>
 
 <template>
-    <form class="wrap-form-comment" @submit="sendComment(postId, inputComment)">
+    <form class="wrap-form-comment" @submit.prevent="sendComment(postId, inputComment)">
         <label class="comment-text">Envoyer un commentaire :</label>
         <input class="comment-form" type="text" placeholder="Votre commentaire" maxlength="255" required v-model="inputComment">  
         <input class="comment-input" type="submit" >

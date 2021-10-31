@@ -70,11 +70,12 @@ export default {
             <div class="wrap-form">
             <input @click="error = true" class="form-margin" type="submit" value="S'inscrire" >
             </div>
-            <p v-show="error">Mot de passe invalide ou email déjà existant, le mot de passe doit contenir 1 chiffre minimum
-                    <br> / 1 miniscule minimum
-                    <br>  / 1 majuscule minimum / 
-                    <br>  1 caractère spécial minimum / 
-                    <br>  8 caractères minimum
+            <p class="subText-error" v-show="error">Mot de passe invalide ou email déjà existant, 
+                    <br> le mot de passe doit contenir 1 chiffre minimum
+                    <br> - 1 miniscule minimum
+                    <br> - 1 majuscule minimum  
+                    <br> - 1 caractère spécial minimum 
+                    <br> - 8 caractères minimum
             </p> 
 
         </form>
@@ -107,5 +108,8 @@ export default {
     .font-center {
         text-align: center;
     }
-
+    .subText-error {
+         text-align: center;
+        color: red;
+    }
 </style>

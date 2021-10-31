@@ -112,7 +112,7 @@ export default {
         <form class="profil-modify" @submit="editMail(inputEmail)">
             <label  for="">Votre email :</label>
             <input class="profil-input" type="email" placeholder="email" v-model="inputEmail">
-            <input type="submit" value="Changer ses informations" required>
+            <input class="profil-submit" type="submit" value="Changer ses informations" required>
         </form>
     </template>
 
@@ -135,7 +135,7 @@ export default {
             <input class="profil-input" type="password" placeholder="nouveau mot de passe" v-model="newPassword" required>
             <label for="">confirmation mot de passe :</label>
             <input class="profil-input" type="password" placeholder="confirmer mot de passe" v-model="confirmationPassword" required>
-            <input type="submit" value="Changer ses informations">
+            <input class="profil-submit" type="submit" value="Changer ses informations">
         </form>
     </template>
 

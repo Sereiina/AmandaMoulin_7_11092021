@@ -55,7 +55,7 @@ export default {
             </div>
 
             <div>
-                <p v-show="error"> Mot de passe ou email incorrect
+                <p class="subText-error" v-show="error"> Mot de passe ou email incorrect
                     </p>
             </div>
 
@@ -78,6 +78,10 @@ export default {
         }
         .font-center {
             text-align: center;
+        }
+        .subText-error {
+            text-align: center;
+            color: red;
         }
 
 </style>
