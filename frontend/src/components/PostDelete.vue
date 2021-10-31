@@ -33,5 +33,6 @@ export default {
         width: 12em;
         padding: 0.5em;
         font-size: 17px;
+        cursor: pointer;
     }
 </style>

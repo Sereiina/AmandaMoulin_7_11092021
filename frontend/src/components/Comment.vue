@@ -16,12 +16,15 @@ export default {
   <main>
 
   <div class="comment-container">
-    <p> {{comment.user.nom}} {{comment.user.prenom}} : </p>
+    <div class="comment-author-and-delete">
+      <p> {{comment.user.nom}} {{comment.user.prenom}} : </p>
+      <CommentDelete v-show="canDelete" :postId="this.comment.postId" :commentId="this.comment.commentId" />
+
+    </div>
 
     <div class="wrapper-comment-meta">
 
        <p>{{ this.comment.content }}</p>
-      <CommentDelete v-show="canDelete" :postId="this.comment.postId" :commentId="this.comment.commentId" />
 
     </div>
   </div>
@@ -36,12 +39,22 @@ export default {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  border-bottom: 1px solid black;
+  background-color: white;
+  width: 31em;
+}
+.comment-author-and-delete{
+  display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px 0 15px;
 }
 .wrapper-comment-meta{
-  display: flex;
+  /* display: flex;
   justify-content: space-around;
-  flex-direction: row;
-  width: 100%;
+  flex-direction: row; */
+  width: 95%;
+  padding: 15px;
 }
 
 

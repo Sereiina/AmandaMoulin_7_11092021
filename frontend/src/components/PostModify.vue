@@ -53,6 +53,8 @@ export default {
         width: 6em;
         padding: 0.5em;
         font-size: 17px;
+        cursor: pointer;
+
     }
 
     .wrap-post-modify {
@@ -79,6 +81,8 @@ export default {
         padding: 0.5em;
         background-color: #ffeded;
         border: black 2px solid;
+        cursor: pointer;
+
     }
 
     @media screen and (min-width: 750px) {

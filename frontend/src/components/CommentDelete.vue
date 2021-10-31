@@ -15,11 +15,11 @@ export default {
 </script>
 
 <template>
-    <div>
-        <div class=""> 
+    <main>
+        <div>
             <i @click="commentDelete" class="fas fa-trash cross"></i>
         </div>
-    </div>
+    </main>
 </template>
 
 <style>
@@ -28,8 +28,8 @@ export default {
      font-size: 1.1em;
  }
  .cross:hover {
-     color: red;
      cursor: pointer;
+     color: red;
      transition: 0.3s ease;
 }
 </style>

@@ -79,7 +79,6 @@ export default {
             <p>Adresse email : {{this.email}}</p>
         </div>
 
-
     <button @click="nameEditForm = !nameEditForm">Changer mon nom</button>
     <Modal v-show="nameEditForm" @close="nameEditForm = false">
     <template v-slot:header>

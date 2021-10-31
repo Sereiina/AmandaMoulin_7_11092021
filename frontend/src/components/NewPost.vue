@@ -29,7 +29,7 @@ export default {
                         <h1>Nouvelle publication</h1>
 
                         <label for="">Titre de la publication</label>
-                        <input class="new-post-form" type="text" placeholder="Title de la publication ..." id="inputTitle" maxlength="255" required v-model="inputTitle">
+                        <input class="new-post-form" type="text" placeholder="Title de la publication ..." id="inputTitle" maxlength="30" required v-model="inputTitle">
 
                         <label for="">Url de votre publication</label>
                         <input class="new-post-form" type="url" placeholder="votre media ..." id="inputMedia" required v-model="inputMedia">
@@ -71,6 +71,8 @@ export default {
         padding: 0.5em;
         background-color: #ffeded;
         border: black 2px solid;
+        cursor: pointer;
+
     }
     @media screen and (min-width: 750px) {
     .wrap-form-post {

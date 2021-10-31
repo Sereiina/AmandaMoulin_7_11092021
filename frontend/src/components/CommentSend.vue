@@ -50,5 +50,7 @@ export default {
         background-color: #ffd7d7;
         border: black 2px solid;
         margin-bottom: 2em;
+        cursor: pointer;
+
     }
 </style>

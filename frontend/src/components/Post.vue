@@ -177,6 +177,7 @@ export default {
     margin-top: 3em;
     border-radius: 1em 1em 0 0;  
     background-color: #ffd7d7;
+    cursor: pointer;
 }
   .author-post > p {
     color: black;
