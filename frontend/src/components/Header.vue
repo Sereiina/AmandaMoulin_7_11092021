@@ -65,6 +65,9 @@ a {
   align-items: flex-end;
   flex-wrap: nowrap;
 }
+.wrap-nav-link > a:hover {
+  font-weight: 600;
+}
 
 .nav-toggle {
   width: 30px;
